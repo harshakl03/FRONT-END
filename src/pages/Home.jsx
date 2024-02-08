@@ -16,11 +16,14 @@ export default function Home() {
       Home {nameA + nameB + nameC}
       <div>
         <Input />
+        <br />
+        <Input />
       </div>
       <Button onClick={() => dispatch(addPA("A"))}>PartA</Button>
       <Button onClick={() => dispatch(addPB("B"))}>PartB</Button>
       <Button onClick={() => dispatch(addPC("C"))}>PartC</Button>
-      <Button>SignUp</Button>
+      <Button>Sign Up</Button>
+      <Button>Register</Button>
     </div>
   );
 }

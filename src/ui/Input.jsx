@@ -11,10 +11,12 @@ const StyledInput = styled.input`
   box-shadow: 1px 1px 5px black;
 
   &:focus{
-        background-color: black;
-        color: white;
+        background-color: #838383;
+        color: #000000;
+        transition: color 0.5s, background-color 0.5s;
     
     }
+  &:hover{  }
 `;
 
 const StyledPart = styled.input`

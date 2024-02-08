@@ -3,6 +3,8 @@ import { addPA } from "../features/PartA/partASlice";
 import { addPB } from "../features/PartB/partBSlice";
 import { addPC } from "../features/PartC/partCSlice";
 import Input from "../ui/Input";
+import Button from "../ui/Button";
+
 
 export default function Home() {
   const { name: nameA } = useSelector((state) => state.partA);
@@ -15,9 +17,10 @@ export default function Home() {
       <div>
         <Input />
       </div>
-      <button onClick={() => dispatch(addPA("A"))}>PartA</button>
-      <button onClick={() => dispatch(addPB("B"))}>PartB</button>
-      <button onClick={() => dispatch(addPC("C"))}>PartC</button>
+      <Button onClick={() => dispatch(addPA("A"))}>PartA</Button>
+      <Button onClick={() => dispatch(addPB("B"))}>PartB</Button>
+      <Button onClick={() => dispatch(addPC("C"))}>PartC</Button>
+      <Button>SignUp</Button>
     </div>
   );
 }

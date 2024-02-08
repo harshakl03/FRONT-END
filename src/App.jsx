@@ -11,10 +11,12 @@ import Declaration from "./pages/Declaration";
 import PageNotFound from "./ui/PageNotFound";
 import { Provider } from "react-redux";
 import store from "./store";
+import GloblaStyles from "./Styles/GlobalStyles";
 
 export default function App() {
   return (
     <Provider store={store}>
+      <GloblaStyles />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

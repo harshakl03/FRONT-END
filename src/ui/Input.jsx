@@ -10,16 +10,12 @@ const StyledInput = styled.input`
   font-family: "Poppins";
   box-shadow: 1px 1px 5px black;
 
-  &:focus{
-        background-color: black;
-        color: white;
-    
-    }
+  &:focus {
+    background-color: black;
+    color: white;
+  }
 `;
 
-const StyledPart = styled.input`
-  
-`
 export default function Input() {
   return <StyledInput name="abc" />;
 }

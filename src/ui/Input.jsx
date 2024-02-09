@@ -15,16 +15,14 @@ const StyledInput = styled.input`
     background-color: black;
     color: white;
   }
-
   &:focus{
-        background-color: #fff;
+        background-color: #838383;
         color: #000000;
         transition: color 0.5s, background-color 0.5s;
     
     }
-
-  &:hover{  
-    background-color: #fff;
+      &:hover{  
+    background-color: #838383;
         color: #000000;
         transition: color 0.5s, background-color 0.5s;
   }
@@ -34,5 +32,5 @@ const StyledInput = styled.input`
 `;
 
 export default function Input() {
-  return <StyledInput name="abc" />;
+  return <StyledInput />;
 }

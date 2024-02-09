@@ -16,12 +16,12 @@ const partASlice = createSlice({
   name: "part-a",
   initialState,
   reducers: {
-    addPA(state, action) {
-      state.name = action.payload;
+    addPartA(state, action) {
+      Object.keys(state).map((field) => (state[field] = action.payload[field]));
     },
   },
 });
 
-export const { addPA } = partASlice.actions;
+export const { addPartA } = partASlice.actions;
 
 export default partASlice.reducer;

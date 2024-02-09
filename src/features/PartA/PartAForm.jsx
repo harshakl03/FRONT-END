@@ -6,12 +6,14 @@ import TextArea from "../../ui/TextArea";
 import React, { useState } from "react";
 import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
+import { addPartA } from "./partASlice";
 
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
   const [preData, setPreData] = useState({ ...data });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log({ ...preData });
 
   function handleChange(e) {
     const { id, value } = e.target;
@@ -20,7 +22,7 @@ export default function PartAForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //dispatch(addPartA(preData));
+    dispatch(addPartA(preData));
     navigate("/employee/part-b");
   }
 
@@ -42,6 +44,10 @@ export default function PartAForm() {
       ))}
 
       <Button>Submit</Button>
+
+      {/*Object.values(data).map((value) => (
+        <p>{value}</p>
+      ))*/}
 
       {/*<Label for="id">Enter your id:</Label>
       <Input id="id" value={preData.id} onChange={handleChange} />

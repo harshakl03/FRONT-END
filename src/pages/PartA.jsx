@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
+import PartAForm from "../features/PartA/PartAForm";
 
 export default function PartA() {
-  const { name } = useSelector((state) => state.partA);
-  return <div>PartA {name}</div>;
+  return <PartAForm />;
 }

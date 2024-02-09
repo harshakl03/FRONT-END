@@ -1,10 +1,8 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const StyledLabel = styled.label`
-    font-family: 'Nunito', 'Poppins';
-`
-export default function Label(){
-    return(
-        <StyledLabel>Enter your name: </StyledLabel>
-    )
+  font-family: "Nunito", "Poppins";
+`;
+export default function Label({ children }) {
+  return <StyledLabel>{children}</StyledLabel>;
 }

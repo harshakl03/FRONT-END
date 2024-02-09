@@ -14,13 +14,13 @@ const BlackButton = styled.button`
   display: inline-block;
   border: 2px solid black;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1.5px;
 
   &:focus {
     background-color: #515151;
     color: white;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
-  
 `;
 
 const BlackButtonLink = styled(Link)`
@@ -36,15 +36,15 @@ const BlackButtonLink = styled(Link)`
   display: inline-block;
   border: 2px solid black;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1.5px;
 
-    &:focus{
-        background-color: black;
-        color: white;
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        opacity: 0.75;
-        
-    }
-    &:hover{
+  &:focus {
+    background-color: black;
+    color: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    opacity: 0.75;
+  }
+  &:hover {
     background-color: black;
     color: white;
     transform: (0.88);

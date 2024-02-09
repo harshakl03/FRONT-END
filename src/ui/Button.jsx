@@ -8,18 +8,19 @@ const BlackButton = styled.button`
   margin: 5px;
   padding: 0.25em 1em;
   border-radius: 50px;
-  color: black;
-  background-color: white;
+  color: #fff;
+  background-color: #282828;
   cursor: pointer;
   display: inline-block;
   border: 2px solid black;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
 
   &:focus {
-    background-color: black;
+    background-color: #515151;
     color: white;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
+  
 `;
 
 const BlackButtonLink = styled(Link)`
@@ -40,7 +41,15 @@ const BlackButtonLink = styled(Link)`
         background-color: black;
         color: white;
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        opacity: 0.75;
+        
     }
+    &:hover{
+    background-color: black;
+    color: white;
+    transform: (0.88);
+    transition: color 0.3s, background-color 0.3s;
+  }
 `;
 
 export default function Button({ children, onClick, to }) {

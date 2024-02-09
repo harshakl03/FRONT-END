@@ -52,8 +52,10 @@ const BlackButtonLink = styled(Link)`
   }
 `;
 
-export default function Button({ children, onClick, to }) {
+export default function Button({ children, onClick, to, onSubmit }) {
   if (to) return <BlackButtonLink to={to}>{children}</BlackButtonLink>;
 
+  if (onSubmit)
+    return <BlackButton onSubmit={onSubmit}>{children}</BlackButton>;
   return <BlackButton onClick={onClick}>{children}</BlackButton>;
 }

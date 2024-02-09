@@ -10,27 +10,32 @@ const StyledInput = styled.input`
   font-family: "Poppins";
   box-shadow: 1px 1px 5px #8a8a8a;
 
-
   &:focus {
     background-color: black;
     color: white;
   }
-  &:focus{
-        background-color: #fff;
-        color: #000000;
-        transition: color 0.5s, background-color 0.5s;
-    
-    }
-      &:hover{  
+  &:focus {
     background-color: #fff;
-        color: #000000;
-        transition: color 0.5s, background-color 0.5s;
+    color: #000000;
+    transition: color 0.5s, background-color 0.5s;
+  }
+  &:hover {
+    background-color: #fff;
+    color: #000000;
+    transition: color 0.5s, background-color 0.5s;
   }
 
-  &:hover{  }
-
+  &:hover {
+  }
 `;
 
-export default function Input() {
-  return <StyledInput />;
+export default function Input({ id, name, value, onChange }) {
+  return (
+    <StyledInput
+      id={id}
+      name={name}
+      value={value === 0 ? "" : value}
+      onChange={onChange}
+    />
+  );
 }

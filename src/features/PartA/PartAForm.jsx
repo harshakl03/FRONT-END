@@ -1,17 +1,54 @@
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import TextArea from "../../ui/TextArea";
+import React, { useState } from "react";
+import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function PartAForm() {
+  const data = useSelector((state) => state.partA);
+  const [preData, setPreData] = useState({ ...data });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    const { id, value } = e.target;
+    setPreData((c) => ({ ...c, [id]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    //dispatch(addPartA(preData));
+    navigate("/employee/part-b");
+  }
+
   return (
-    <Form>
-      <Label for="id">Enter your id:</Label>
-      <Input name="id" />
+    <Form onSubmit={handleSubmit}>
+      {Object.keys(data).map((field, index) => (
+        <React.Fragment key={index}>
+          <Label for={field}>Enter your {field}:</Label>
+          {field === "pad" ? (
+            <TextArea
+              id={field}
+              value={preData[field]}
+              onChange={handleChange}
+            />
+          ) : (
+            <Input id={field} value={preData[field]} onChange={handleChange} />
+          )}
+        </React.Fragment>
+      ))}
+
+      <Button>Submit</Button>
+
+      {/*<Label for="id">Enter your id:</Label>
+      <Input id="id" value={preData.id} onChange={handleChange} />
       <Label for="vtu_id">Enter VTU id:</Label>
       <Input name="vtu_id" />
       <Label for="full_name">Enter your full name:</Label>
-      <Input name="full_name" />
+      <Input id="full_name" value={preData.full_name} onChange={handleChange} />
       <Label for="father_name">Enter your father name:</Label>
       <Input name="father_name" />
       <Label for="mother_name">Enter your mother name:</Label>
@@ -23,7 +60,7 @@ export default function PartAForm() {
       <Label for="pad">Enter your permanent address:</Label>
       <TextArea name="pad" />
       <Label for="email_address">Enter your email address:</Label>
-      <Input name="email_address" />
+      <Input name="email_address" />*/}
     </Form>
   );
 }

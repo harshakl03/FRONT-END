@@ -8,6 +8,6 @@ const StyledForm = styled.form`
   margin: 20px;
 `;
 
-export default function Form({ children }) {
-  return <StyledForm>{children}</StyledForm>;
+export default function Form({ onSubmit, children }) {
+  return <StyledForm onSubmit={onSubmit}>{children}</StyledForm>;
 }

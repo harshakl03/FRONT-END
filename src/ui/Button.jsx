@@ -1,61 +1,75 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-const BlackButton = styled.button`
+const coolShadow = keyframes`
+  0% {
+    transform: scale(1);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.0125);
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const Button = styled.button`
   color: white;
   font-size: 1em;
   font-family: "Poppins", sans-serif;
-  margin: 5px;
-  padding: 0.25em 1em;
-  border-radius: 50px;
-  color: #fff;
+  padding: 0.25em 1.5em;
+  border-radius: 30px;
   background-color: #282828;
+  border: none;
   cursor: pointer;
-  display: inline-block;
-  border: 2px solid black;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
-  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    animation: ${coolShadow} 0.5s forwards;
+  }
 
   &:focus {
+    outline: none;
     background-color: #515151;
-    color: white;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 `;
 
-const BlackButtonLink = styled(Link)`
+const ButtonLink = styled(Link)`
   color: white;
   font-size: 1em;
   font-family: "Poppins", sans-serif;
-  margin: 5px;
-  padding: 0.25em 1em;
-  border-radius: 50px;
-  color: black;
-  background-color: white;
+  padding: 0.5em 1.5em;
+  border-radius: 30px;
+  background-color: #282828;
+  border: none;
+  margin: 8px;
   cursor: pointer;
-  display: inline-block;
-  border: 2px solid black;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
-  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;
+
+  &:hover {
+    animation: ${coolShadow} 0.5s forwards;
+  }
 
   &:focus {
-    background-color: black;
-    color: white;
+    outline: none;
+    background-color: #282828;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    opacity: 0.75;
-  }
-  &:hover {
-    background-color: black;
-    color: white;
-    transform: (0.88);
-    transition: color 0.3s, background-color 0.3s;
   }
 `;
 
-export default function Button({ children, onClick, to, onSubmit }) {
-  if (to) return <BlackButtonLink to={to}>{children}</BlackButtonLink>;
+export default function CustomButton({ children, onClick, to, onSubmit }) {
+  if (to) return <ButtonLink to={to}>{children}</ButtonLink>;
 
-  if (onSubmit)
-    return <BlackButton onSubmit={onSubmit}>{children}</BlackButton>;
-  return <BlackButton onClick={onClick}>{children}</BlackButton>;
+  if (onSubmit) return <Button onSubmit={onSubmit}>{children}</Button>;
+  
+  return <Button onClick={onClick}>{children}</Button>;
 }

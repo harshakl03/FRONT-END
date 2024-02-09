@@ -3,29 +3,23 @@ import styled from "styled-components";
 const StyledInput = styled.input`
   color: black;
   font-size: 1em;
-  border: 2px solid black;
+  border: none;
   border-radius: 10px;
   margin: 1em;
   padding: 1em;
+  border: 1px solid black;
   font-family: "Poppins";
-  box-shadow: 1px 1px 5px #8a8a8a;
+  background-color: #f4f4f4; /* Light background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
 
   &:focus {
-    background-color: black;
-    color: white;
-  }
-  &:focus {
-    background-color: #fff;
-    color: #000000;
-    transition: color 0.5s, background-color 0.5s;
-  }
-  &:hover {
-    background-color: #fff;
-    color: #000000;
-    transition: color 0.5s, background-color 0.5s;
+    outline: none;
+    background-color: #e0e0e0; /* Slightly darker background on focus */
+    color: #333; /* Darker text color */
   }
 
   &:hover {
+    background-color: #eaeaea; /* Slightly darker background on hover */
   }
 `;
 

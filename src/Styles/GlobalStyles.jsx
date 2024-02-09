@@ -74,7 +74,7 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   color: var(--color-grey-700);
-  background: linear-gradient(to top left,  #d2d2d2, #c7c7c7);
+  background: linear-gradient(to top left,  #e3e3e3, #ffffff);
   
 
   transition: color 0.3s, background-color 0.3s;

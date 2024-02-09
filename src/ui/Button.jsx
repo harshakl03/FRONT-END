@@ -18,6 +18,12 @@ const BlackButton = styled.button`
         background-color: black;
         color: white;
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        
+    }
+    &:hover{
+        background-color: black;
+        color: white;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 `;
 

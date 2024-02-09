@@ -1,0 +1,3 @@
+const StyledLabel = styled.label`
+    
+`

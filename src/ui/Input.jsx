@@ -16,7 +16,11 @@ const StyledInput = styled.input`
         transition: color 0.5s, background-color 0.5s;
     
     }
-  &:hover{  }
+  &:hover{  
+    background-color: #838383;
+        color: #000000;
+        transition: color 0.5s, background-color 0.5s;
+  }
 `;
 
 const StyledPart = styled.input`

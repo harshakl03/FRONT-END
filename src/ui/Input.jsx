@@ -16,13 +16,13 @@ const StyledInput = styled.input`
     color: white;
   }
   &:focus{
-        background-color: #838383;
+        background-color: #fff;
         color: #000000;
         transition: color 0.5s, background-color 0.5s;
     
     }
       &:hover{  
-    background-color: #838383;
+    background-color: #fff;
         color: #000000;
         transition: color 0.5s, background-color 0.5s;
   }

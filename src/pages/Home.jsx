@@ -1,16 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addPA } from "../features/PartA/partASlice";
-import { addPB } from "../features/PartB/partBSlice";
-import { addPC } from "../features/PartC/partCSlice";
+import { useSelector } from "react-redux";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
-
 
 export default function Home() {
   const { name: nameA } = useSelector((state) => state.partA);
   const { name: nameB } = useSelector((state) => state.partB);
   const { name: nameC } = useSelector((state) => state.partC);
-  const dispatch = useDispatch();
   return (
     <div>
       Home {nameA + nameB + nameC}
@@ -19,11 +14,11 @@ export default function Home() {
         <br />
         <Input />
       </div>
-      <Button onClick={() => dispatch(addPA("A"))}>PartA</Button>
-      <Button onClick={() => dispatch(addPB("B"))}>PartB</Button>
-      <Button onClick={() => dispatch(addPC("C"))}>PartC</Button>
-      <Button>Sign Up</Button>
-      <Button>Register</Button>
+      <Button to="/employee/part-a">PartA</Button>
+      <Button to="/employee/part-b/cat1">PartB</Button>
+      <Button to="/employee/part-c">PartC</Button>
+      <Button to="/login">Log In</Button>
+      <Button to="/register">Register</Button>
     </div>
   );
 }

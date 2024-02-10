@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: "",
-  vtu_id: "",
-  full_name: "",
-  father_name: "",
-  mother_name: "",
-  mobile: 0,
-  emergency_mobile: 0,
-  pad: "",
-  email_address: "",
+  id: { value: "", required: true },
+  vtu_id: { value: "", required: true },
+  full_name: { value: "", required: true },
+  father_name: { value: "", required: false },
+  mother_name: { value: "", required: false },
+  mobile: { value: 0, required: true },
+  emergency_mobile: { value: "", required: true },
+  pad: { value: "", required: true },
+  email_address: { value: "", required: true },
 };
 
 const partASlice = createSlice({
@@ -17,7 +17,10 @@ const partASlice = createSlice({
   initialState,
   reducers: {
     addPartA(state, action) {
-      Object.keys(state).map((field) => (state[field] = action.payload[field]));
+      Object.keys(state).map((fields) => {
+        const { value: val } = action.payload[fields];
+        return (state[fields].value = val);
+      });
     },
   },
 });

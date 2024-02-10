@@ -7,22 +7,46 @@ import React, { useState } from "react";
 import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 import { addPartA } from "./partASlice";
+import toast from "react-hot-toast";
 
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
-  const [preData, setPreData] = useState({ ...data });
+  const [preData, setPreData] = useState(data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log({ ...preData });
+
+  const emptyFields = Object.keys(preData).reduce((acc, fields) => {
+    if (
+      (preData[fields].required === true && preData[fields].value === "") ||
+      preData[fields].value === 0
+    )
+      return acc + 1;
+    return acc;
+  }, 0);
+
+  console.log(emptyFields);
+
+  //console.log({ ...preData });
 
   function handleChange(e) {
-    const { id, value } = e.target;
-    setPreData((c) => ({ ...c, [id]: value }));
+    const { id, value: val } = e.target;
+    setPreData((c) => ({ ...c, [id]: { ...c[id], value: val } }));
+  }
+
+  function handleKeyPress(e) {
+    e.key === "Enter" && e.preventDefault();
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (emptyFields > 1) {
+      toast.error("Few fields are empty");
+      return;
+    }
+
     dispatch(addPartA(preData));
+    console.log(preData);
     navigate("/employee/part-b");
   }
 
@@ -34,11 +58,17 @@ export default function PartAForm() {
           {field === "pad" ? (
             <TextArea
               id={field}
-              value={preData[field]}
+              value={preData[field].value}
               onChange={handleChange}
             />
           ) : (
-            <Input id={field} value={preData[field]} onChange={handleChange} />
+            <Input
+              key={field}
+              id={field}
+              value={preData[field].value}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+            />
           )}
         </React.Fragment>
       ))}

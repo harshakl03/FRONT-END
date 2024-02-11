@@ -40,7 +40,7 @@ export default function PartAForm() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (emptyFields > 1) {
+    if (emptyFields > 0) {
       toast.error("Few fields are empty");
       return;
     }

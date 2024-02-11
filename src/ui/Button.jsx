@@ -30,7 +30,7 @@ const Button = styled.button`
   overflow: hidden;
 
   &:hover {
-    animation: ${coolShadow} 0.5s forwards;
+    animation: ${coolShadow} 0.5s ease;
   }
 
   &:focus {

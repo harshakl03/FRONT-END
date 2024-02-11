@@ -1,4 +1,4 @@
-import Input from "../ui/Input";
+import { Input } from "../ui/Input";
 import Button from "../ui/Button";
 import Label from "../ui/Label";
 

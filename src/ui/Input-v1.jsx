@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import ErrorElement from "./ErrorElement";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-export const Input = styled.input`
+const StyledInput = styled.input`
   color: black;
   font-size: 1em;
   border: none;
@@ -36,3 +39,27 @@ export const FileInput = styled.input`
     cursor: pointer;
   }
 `;
+
+export default function Input({ id, name, value = "", onChange, onKeyPress }) {
+  const [isError, setIserror] = useState(false);
+  const data = useSelector((state) => state.partA);
+
+  function handleFocusOut() {
+    if (!data[id].required) return;
+    !value || value === 0 ? setIserror(true) : setIserror(false);
+  }
+
+  return (
+    <>
+      <StyledInput
+        id={id}
+        name={name}
+        value={value === 0 ? "" : value}
+        onChange={onChange}
+        onKeyPress={onKeyPress}
+        onBlur={handleFocusOut}
+      />
+      {isError && <ErrorElement />}
+    </>
+  );
+}

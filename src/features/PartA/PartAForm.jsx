@@ -1,102 +1,125 @@
 import { useDispatch, useSelector } from "react-redux";
-import Form from "../../ui/Form";
-import Input from "../../ui/Input";
-import Label from "../../ui/Label";
-import TextArea from "../../ui/TextArea";
-import React, { useState } from "react";
+import { Input, FileInput } from "../../ui/Input";
+import { TextArea } from "../../ui/TextArea";
+import React from "react";
 import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 import { addPartA } from "./partASlice";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import FormRow from "../../ui/FormRow";
+import Form from "../../ui/Form";
 
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
-  const [preData, setPreData] = useState(data);
-  const dispatch = useDispatch();
+  const { handleSubmit, register, formState } = useForm({
+    defaultValues: {},
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const emptyFields = Object.keys(preData).reduce((acc, fields) => {
-    if (
-      (preData[fields].required === true && preData[fields].value === "") ||
-      preData[fields].value === 0
-    )
-      return acc + 1;
-    return acc;
-  }, 0);
+  const { errors } = formState;
 
-  console.log(emptyFields);
-
-  //console.log({ ...preData });
-
-  function handleChange(e) {
-    const { id, value: val } = e.target;
-    setPreData((c) => ({ ...c, [id]: { ...c[id], value: val } }));
-  }
-
-  function handleKeyPress(e) {
-    e.key === "Enter" && e.preventDefault();
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    if (emptyFields > 0) {
-      toast.error("Few fields are empty");
-      return;
-    }
-
-    dispatch(addPartA(preData));
-    console.log(preData);
+  function onSubmit(data) {
+    dispatch(addPartA(data));
+    toast.success("Form Added Successfully");
     navigate("/employee/part-b");
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      {Object.keys(data).map((field, index) => (
-        <React.Fragment key={index}>
-          <Label for={field}>Enter your {field}:</Label>
-          {field === "pad" ? (
-            <TextArea
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      {Object.keys(data).map((field) => (
+        <FormRow
+          key={field}
+          label={`Enter ${data[field].name}:${data[field].required ? "*" : ""}`}
+          error={errors?.[field]?.type}
+        >
+          {field !== "pad" ? (
+            <Input
+              type={
+                typeof data[field].value === "string"
+                  ? "text"
+                  : typeof data[field].value
+              }
               id={field}
-              value={preData[field].value}
-              onChange={handleChange}
+              {...register(field, { required: data[field].required })}
             />
           ) : (
-            <Input
-              key={field}
+            <TextArea
+              type="text"
               id={field}
-              value={preData[field].value}
-              onChange={handleChange}
-              onKeyPress={handleKeyPress}
+              {...register(field, { required: data[field].required })}
             />
           )}
-        </React.Fragment>
+        </FormRow>
       ))}
 
-      <Button>Submit</Button>
+      {/* WITHOUT USING MAP
+      <FormRow label="Enter your Id" error={errors?.id?.type}>
+        <Input type="text" id="id" {...register("id", { required: true })} />
+      </FormRow>
+      <FormRow label="Enter your VTU Id" error={errors?.vtu_id?.type}>
+        <Input
+          type="text"
+          id="id"
+          {...register("vtu_id", { required: true })}
+        />
+      </FormRow>
+      <FormRow label="Enter your Full Name" error={errors?.full_name?.type}>
+        <Input
+          type="text"
+          id="id"
+          {...register("full_name", {
+            required: true,
+          })}
+        />
+      </FormRow>
+      <FormRow label="Enter your Father Name" error={errors?.father_name?.type}>
+        <Input type="text" id="id" {...register("father_name")} />
+      </FormRow>
+      <FormRow label="Enter your Mother Name" error={errors?.mother_name?.type}>
+        <Input type="text" id="id" {...register("mother_name")} />
+      </FormRow>
+      <FormRow label="Enter your Mobile Number" error={errors?.mobile?.type}>
+        <Input
+          type="text"
+          id="id"
+          {...register("mobile", { required: true })}
+        />
+      </FormRow>
+      <FormRow
+        label="Enter your Emergency Mobile Number"
+        error={errors?.emergency_mobile?.type}
+      >
+        <Input
+          type="text"
+          id="id"
+          {...register("emergency_mobile", {
+            required: true,
+          })}
+        />
+      </FormRow>
+      <FormRow label="Enter your Personal Address" error={errors?.pad?.type}>
+        <Input type="text" id="id" {...register("pad", { required: true })} />
+      </FormRow>
+      <FormRow
+        label="Enter your Email Address"
+        error={errors?.email_address?.type}
+      >
+        <Input
+          type="text"
+          id="id"
+          {...register("email_address", {
+            required: true,
+          })}
+        />
+      </FormRow>
+      */}
 
-      {/*Object.values(data).map((value) => (
-        <p>{value}</p>
-      ))*/}
+      {/* IMAGE PICKER
+       <FileInput type="file" name="Choose image" id="image" accept="image/*" />*/}
 
-      {/*<Label for="id">Enter your id:</Label>
-      <Input id="id" value={preData.id} onChange={handleChange} />
-      <Label for="vtu_id">Enter VTU id:</Label>
-      <Input name="vtu_id" />
-      <Label for="full_name">Enter your full name:</Label>
-      <Input id="full_name" value={preData.full_name} onChange={handleChange} />
-      <Label for="father_name">Enter your father name:</Label>
-      <Input name="father_name" />
-      <Label for="mother_name">Enter your mother name:</Label>
-      <Input name="mother_name" />
-      <Label for="mobile">Enter your mobile number:</Label>
-      <Input name="mobile" />
-      <Label for="emergency_mobile">Enter your emergency mobile number:</Label>
-      <Input name="emergency_mobile" />
-      <Label for="pad">Enter your permanent address:</Label>
-      <TextArea name="pad" />
-      <Label for="email_address">Enter your email address:</Label>
-      <Input name="email_address" />*/}
+      <Button>Click</Button>
     </Form>
   );
 }

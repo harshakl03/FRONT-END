@@ -18,6 +18,9 @@ const coolShadow = keyframes`
 
 const Button = styled.button`
   color: white;
+  width: 150px;
+  margin-top: 10px;
+  height: 5rem;
   font-size: 1em;
   font-family: "Poppins", sans-serif;
   padding: 0.25em 1.5em;
@@ -66,10 +69,8 @@ const ButtonLink = styled(Link)`
   }
 `;
 
-export default function CustomButton({ children, onClick, to, onSubmit }) {
+export default function CustomButton({ children, onClick, to }) {
   if (to) return <ButtonLink to={to}>{children}</ButtonLink>;
 
-  if (onSubmit) return <Button onSubmit={onSubmit}>{children}</Button>;
-  
   return <Button onClick={onClick}>{children}</Button>;
 }

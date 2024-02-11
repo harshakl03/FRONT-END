@@ -15,7 +15,7 @@ const coolPulseAnimation = keyframes`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 650px;
   margin: 20px auto;
   padding: 40px;
   border-radius: 20px;
@@ -39,7 +39,7 @@ const StyledForm = styled.form`
   }
   /* Add a line between each field */
   & > *:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 0;

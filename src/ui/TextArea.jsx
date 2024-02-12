@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const TextArea = styled.textarea`
   border-radius: 10px;
   resize: vertical;
+  min-height: 95px;
   margin: 5px;
   padding: 10px;
   border: 1px solid black;

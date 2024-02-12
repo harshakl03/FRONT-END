@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Input, FileInput } from "../../ui/Input";
 import { TextArea } from "../../ui/TextArea";
-import React from "react";
-import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Button, { ButtonRow } from "../../ui/Button";
 import { addPartA } from "./partASlice";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -13,19 +12,36 @@ import Form from "../../ui/Form";
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
   const { handleSubmit, register, formState } = useForm({
-    defaultValues: {},
+    defaultValues: JSON.parse(localStorage.getItem("part-a")) || {},
   });
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(
+    function () {
+      if (!JSON.parse(localStorage.getItem("part-a"))) {
+        localStorage.removeItem("part-a/submitted");
+      }
+      setSubmitted(JSON.parse(localStorage.getItem("part-a/submitted")));
+    },
+    [localStorage.getItem("part-a/submitted")]
+  );
+
+  const [submitted, setSubmitted] = useState(() =>
+    JSON.parse(localStorage.getItem("part-a/submitted"))
+  );
 
   const { errors } = formState;
 
   function onSubmit(data) {
+    if (JSON.parse(localStorage.getItem("part-a/submitted"))) {
+      localStorage.setItem("part-a/submitted", false);
+      return;
+    }
     dispatch(addPartA(data));
+    localStorage.setItem("part-a", JSON.stringify(data));
+    localStorage.setItem("part-a/submitted", true);
     toast.success("Form Added Successfully");
-    navigate("/employee/part-b");
   }
-
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {Object.keys(data).map((field) => (
@@ -42,12 +58,14 @@ export default function PartAForm() {
                   : typeof data[field].value
               }
               id={field}
+              disabled={submitted}
               {...register(field, { required: data[field].required })}
             />
           ) : (
             <TextArea
               type="text"
               id={field}
+              disabled={submitted}
               {...register(field, { required: data[field].required })}
             />
           )}
@@ -118,8 +136,16 @@ export default function PartAForm() {
 
       {/* IMAGE PICKER
        <FileInput type="file" name="Choose image" id="image" accept="image/*" />*/}
-
-      <Button>Click</Button>
+      <ButtonRow>
+        {submitted ? (
+          <>
+            <Button>Edit</Button>
+            <Button to="/employee/part-b">Next</Button>
+          </>
+        ) : (
+          <Button>Submit</Button>
+        )}
+      </ButtonRow>
     </Form>
   );
 }

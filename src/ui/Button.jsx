@@ -45,13 +45,18 @@ const Button = styled.button`
 
 const ButtonLink = styled(Link)`
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 5rem;
+  margin-top: 10px;
   font-size: 1em;
   font-family: "Poppins", sans-serif;
-  padding: 0.5em 1.5em;
+  padding: 0.25em 1.5em;
   border-radius: 30px;
   background-color: #282828;
   border: none;
-  margin: 8px;
   cursor: pointer;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
@@ -67,6 +72,11 @@ const ButtonLink = styled(Link)`
     background-color: #282828;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
+`;
+
+export const ButtonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default function CustomButton({ children, onClick, to }) {

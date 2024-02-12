@@ -23,7 +23,6 @@ const partASlice = createSlice({
   initialState,
   reducers: {
     addPartA(state, action) {
-      console.log(action);
       Object.keys(state).map(
         (field) => (state[field].value = action.payload[field])
       );

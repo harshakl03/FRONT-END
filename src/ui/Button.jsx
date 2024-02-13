@@ -79,8 +79,17 @@ export const ButtonRow = styled.div`
   justify-content: space-between;
 `;
 
-export default function CustomButton({ children, onClick, to }) {
-  if (to) return <ButtonLink to={to}>{children}</ButtonLink>;
+export default function CustomButton({ children, onClick, to, icon }) {
+  if (to)
+    return (
+      <ButtonLink to={to}>
+        {icon} {children}
+      </ButtonLink>
+    );
 
-  return <Button onClick={onClick}>{children}</Button>;
+  return (
+    <Button onClick={onClick}>
+      {icon} {children}
+    </Button>
+  );
 }

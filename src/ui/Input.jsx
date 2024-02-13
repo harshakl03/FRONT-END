@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Input = styled.input`
   color: black;
@@ -21,6 +21,24 @@ export const Input = styled.input`
   &:hover {
     background-color: #eaeaea; /* Slightly darker background on hover */
   }
+
+  ${(props) =>
+    props.type === "number" &&
+    css`
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+    `}/* input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  } */
 `;
 
 export const FileInput = styled.input`

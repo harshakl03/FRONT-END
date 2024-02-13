@@ -1,21 +1,76 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: { name: "Id", value: "", required: true },
-  vtu_id: { name: "VTU Id", value: "", required: true },
-  full_name: { name: "Full Name", value: "", required: true },
-  father_name: { name: "Father Name", value: "", required: false },
-  mother_name: { name: "Mother Name", value: "", required: false },
-  mobile: { name: "Mobile Number", value: 0, required: true },
-  emergency_mobile: {
-    name: "Emergency Mobile Number",
+  vtu_id: {
+    label: "Enter VTU Id:",
     value: "",
     required: true,
+    field: "input",
+    type: "text",
   },
-  pad: { name: "Personal Address", value: "", required: true },
-  email_address: { name: "Email Address", value: "", required: true },
-  aadhar: { name: "Aadhaar", value: "", required: true },
-  pan_number: { name: "Pan Number", value: "", required: true },
+  full_name: {
+    label: "Enter Full Name:",
+    value: "",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  father_name: {
+    label: "Enter Father Name:",
+    value: "",
+    required: false,
+    field: "input",
+    type: "text",
+  },
+  mother_name: {
+    label: "Enter Mother Name:",
+    value: "",
+    required: false,
+    field: "input",
+    type: "text",
+  },
+  mobile: {
+    label: "Enter Mobile Number:",
+    value: 0,
+    required: true,
+    field: "input",
+    type: "number",
+  },
+  emergency_mobile: {
+    label: "Enter Emergency Mobile Number:",
+    value: 0,
+    required: true,
+    field: "input",
+    type: "number",
+  },
+  pad: {
+    label: "Enter Personal Address:",
+    value: "",
+    required: true,
+    field: "text-area",
+    type: "text",
+  },
+  email_address: {
+    label: "Enter Email Address:",
+    value: "",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  aadhar: {
+    label: "Enter Aadhaar:",
+    value: "",
+    required: true,
+    field: "input",
+    type: "number",
+  },
+  pan_number: {
+    label: "Enter Pan Number:",
+    value: "",
+    required: true,
+    field: "input",
+    type: "text",
+  },
 };
 
 const partASlice = createSlice({
@@ -24,7 +79,7 @@ const partASlice = createSlice({
   reducers: {
     addPartA(state, action) {
       Object.keys(state).map(
-        (field) => (state[field].value = action.payload[field])
+        (field) => (state[field].value = action.payload[field] || "")
       );
     },
   },

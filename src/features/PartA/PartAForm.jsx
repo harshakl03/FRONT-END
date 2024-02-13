@@ -1,4 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
+import {
+  HiOutlineArrowRightCircle,
+  HiOutlineCheckCircle,
+  HiOutlinePencilSquare,
+} from "react-icons/hi2";
 import { Input, FileInput } from "../../ui/Input";
 import { TextArea } from "../../ui/TextArea";
 import React, { useEffect, useState } from "react";
@@ -8,13 +13,19 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
+import { Header } from "../../ui/Stylers";
+import { Footer } from "../../ui/Stylers";
 
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
+  const [submitted, setSubmitted] = useState(
+    JSON.parse(localStorage.getItem("part-a/submitted"))
+  );
   const { handleSubmit, register, formState } = useForm({
     defaultValues: JSON.parse(localStorage.getItem("part-a")) || {},
   });
   const dispatch = useDispatch();
+  console.log("abc");
 
   useEffect(
     function () {
@@ -26,53 +37,54 @@ export default function PartAForm() {
     [localStorage.getItem("part-a/submitted")]
   );
 
-  const [submitted, setSubmitted] = useState(() =>
-    JSON.parse(localStorage.getItem("part-a/submitted"))
-  );
-
   const { errors } = formState;
 
-  function onSubmit(data) {
-    if (JSON.parse(localStorage.getItem("part-a/submitted"))) {
-      localStorage.setItem("part-a/submitted", false);
-      return;
-    }
-    dispatch(addPartA(data));
-    localStorage.setItem("part-a", JSON.stringify(data));
-    localStorage.setItem("part-a/submitted", true);
-    toast.success("Form Added Successfully");
+  function handleEdit(e) {
+    e.preventDefault();
+    localStorage.setItem("part-a/submitted", false);
+    setSubmitted(false);
   }
-  return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      {Object.keys(data).map((field) => (
-        <FormRow
-          key={field}
-          label={`Enter ${data[field].name}:${data[field].required ? "*" : ""}`}
-          error={errors?.[field]?.type}
-        >
-          {field !== "pad" ? (
-            <Input
-              type={
-                typeof data[field].value === "string"
-                  ? "text"
-                  : typeof data[field].value
-              }
-              id={field}
-              disabled={submitted}
-              {...register(field, { required: data[field].required })}
-            />
-          ) : (
-            <TextArea
-              type="text"
-              id={field}
-              disabled={submitted}
-              {...register(field, { required: data[field].required })}
-            />
-          )}
-        </FormRow>
-      ))}
 
-      {/* WITHOUT USING MAP
+  function onSubmit(data) {
+    if (!JSON.parse(localStorage.getItem("part-a/submitted"))) {
+      dispatch(addPartA(data));
+      localStorage.setItem("part-a", JSON.stringify(data));
+      localStorage.setItem("part-a/submitted", true);
+      toast.success("Form Added Successfully");
+    }
+    return;
+  }
+
+  return (
+    <>
+      <Header>FACULTY DETAILS</Header>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        {Object.keys(data).map((field) => (
+          <FormRow
+            key={field}
+            label={`${data[field].label}${data[field].required ? "*" : ""}`}
+            error={errors?.[field]?.type}
+          >
+            {data[field].field === "input" && (
+              <Input
+                type={data[field].type}
+                id={field}
+                disabled={submitted}
+                {...register(field, { required: data[field].required })}
+              />
+            )}
+            {data[field].field === "text-area" && (
+              <TextArea
+                type={data[field].type}
+                id={field}
+                disabled={submitted}
+                {...register(field, { required: data[field].required })}
+              />
+            )}
+          </FormRow>
+        ))}
+
+        {/* WITHOUT USING MAP
       <FormRow label="Enter your Id" error={errors?.id?.type}>
         <Input type="text" id="id" {...register("id", { required: true })} />
       </FormRow>
@@ -134,18 +146,25 @@ export default function PartAForm() {
       </FormRow>
       */}
 
-      {/* IMAGE PICKER
+        {/* IMAGE PICKER
        <FileInput type="file" name="Choose image" id="image" accept="image/*" />*/}
-      <ButtonRow>
-        {submitted ? (
-          <>
-            <Button>Edit</Button>
-            <Button to="/employee/part-b">Next</Button>
-          </>
-        ) : (
-          <Button>Submit</Button>
-        )}
-      </ButtonRow>
-    </Form>
+        <ButtonRow>
+          {submitted ? (
+            <>
+              <Button onClick={handleEdit} icon={<HiOutlinePencilSquare />}>
+                Edit
+              </Button>
+              <Button to="/employee/part-b/cat1">
+                Next
+                <HiOutlineArrowRightCircle />
+              </Button>
+            </>
+          ) : (
+            <Button icon={<HiOutlineCheckCircle />}>Submit</Button>
+          )}
+        </ButtonRow>
+      </Form>
+      <Footer>@Copyright2024</Footer>
+    </>
   );
 }

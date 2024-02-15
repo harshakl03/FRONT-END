@@ -3,6 +3,10 @@ const ErrorMessage = styled.p`
   color: #ff0000;
 `;
 
-export default function ErrorElement() {
-  return <ErrorMessage>The above field is required</ErrorMessage>;
+export default function ErrorElement({ message }) {
+  return (
+    <ErrorMessage>
+      {message ? message : "The above field is required"}
+    </ErrorMessage>
+  );
 }

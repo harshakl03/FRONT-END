@@ -8,12 +8,12 @@ const StyledFormRow = styled.div`
   margin-bottom: 2rem;
 `;
 
-export default function FormRow({ label, error, children }) {
+export default function FormRow({ label, error, children, errorm }) {
   return (
     <StyledFormRow>
       {label && <label htmlFor="id">{label}</label>}
       {children}
-      {error && <ErrorElement />}
+      {(error || errorm) && <ErrorElement message={errorm} />}
     </StyledFormRow>
   );
 }

@@ -21,7 +21,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login">
+            <Route index element={<Login />} />
+            <Route path="forgot-password" element={<h1>FORGOT PASSWORD</h1>} />
+          </Route>
           <Route path="/register" element={<Register />} />
           <Route path="/employee">
             <Route index element={<Navigate to="part-a" />} />

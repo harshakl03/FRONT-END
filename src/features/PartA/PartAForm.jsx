@@ -22,22 +22,27 @@ export default function PartAForm() {
     JSON.parse(localStorage.getItem("part-a/submitted"))
   );
   const { handleSubmit, register, formState } = useForm({
-    defaultValues: JSON.parse(localStorage.getItem("part-a")) || {},
+    defaultValues:
+      (JSON.parse(localStorage.getItem("part-a/submitted")) &&
+        JSON.parse(localStorage.getItem("part-a"))) ||
+      {},
   });
+  const { errors } = formState;
+
   const dispatch = useDispatch();
-  console.log("abc");
 
   useEffect(
     function () {
       if (!JSON.parse(localStorage.getItem("part-a"))) {
         localStorage.removeItem("part-a/submitted");
       }
+      if (!JSON.parse(localStorage.getItem("part-a/submitted"))) {
+        localStorage.removeItem("part-a");
+      }
       setSubmitted(JSON.parse(localStorage.getItem("part-a/submitted")));
     },
     [localStorage.getItem("part-a/submitted")]
   );
-
-  const { errors } = formState;
 
   function handleEdit(e) {
     e.preventDefault();

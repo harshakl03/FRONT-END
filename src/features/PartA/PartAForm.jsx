@@ -30,18 +30,19 @@ export default function PartAForm() {
   const { errors } = formState;
 
   const dispatch = useDispatch();
+  const getSubmit = localStorage.getItem("part-a/submitted");
 
   useEffect(
     function () {
       if (!JSON.parse(localStorage.getItem("part-a"))) {
         localStorage.removeItem("part-a/submitted");
       }
-      if (!JSON.parse(localStorage.getItem("part-a/submitted"))) {
+      if (!JSON.parse(getSubmit)) {
         localStorage.removeItem("part-a");
       }
-      setSubmitted(JSON.parse(localStorage.getItem("part-a/submitted")));
+      setSubmitted(JSON.parse(getSubmit));
     },
-    [localStorage.getItem("part-a/submitted")]
+    [getSubmit]
   );
 
   function handleEdit(e) {

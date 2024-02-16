@@ -1,23 +1,33 @@
 import { Input } from "../ui/Input";
-import Button from "../ui/Button";
+import Button, { ButtonRow } from "../ui/Button";
 import Label from "../ui/Label";
+import styled from "styled-components";
+
+const StyledHome = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url("https://singheducation.co.in/images/CollegeImages/618942DSC_0837-582x359.jpg");
+  background-size: 100% 100%; */
+`;
+
+const Image = styled.img`
+  background-color: white;
+  padding: 10px;
+  border: solid black;
+  aspect-ratio: 1/1;
+`;
 
 export default function Home() {
   return (
-    <div>
-      Home
-      <div>
-        <Input />
-        <br />
-        <Label />
-        <Input />
-      </div>
-      <Button to="/employee/part-a">PartA</Button>
-      <Button to="/employee/part-b/cat1">PartB</Button>
-      <Button to="/employee/part-c">PartC</Button>
-      <Button to="/login">Log In</Button>
-      <Button to="/register">Register</Button>
-      <Button>Normal</Button>
-    </div>
+    <StyledHome>
+      <h1>Home</h1>
+      <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
+      <ButtonRow>
+        <Button to="/login">Log In</Button>
+        <Button to="/register">Register</Button>
+      </ButtonRow>
+    </StyledHome>
   );
 }

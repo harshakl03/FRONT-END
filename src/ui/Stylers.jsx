@@ -7,7 +7,6 @@ export const Header = styled.header`
   margin-top: 20px;
   font-size: 24px;
   text-decoration: underline;
-  
 `;
 
 export const Footer = styled.footer`

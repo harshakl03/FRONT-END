@@ -2,14 +2,17 @@ import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { Input } from "../../ui/Input";
+import { Header, Footer } from "../../ui/Stylers";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import useLoginData from "./useLoginData";
+import useLogin from "./useLogin";
 
 const StyledLoginForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 500px;
-  margin: 80px auto;
+  margin: 20px auto;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -37,7 +40,7 @@ const StyledLoginForm = styled.form`
     bottom: -10px;
     left: 0;
     width: 100%;
-    border-bottom: 1px solid #939393; /* Adjust line style as needed */
+    border-bottom: 1px solid #939393; /* Adjust line style as needed 
   } */
 `;
 
@@ -56,40 +59,53 @@ const StyledLink = styled(Link)`
 `;
 
 export default function LoginForm() {
-  const { handleSubmit, register, formState } = useForm({ defaultValues: {} });
+  const { handleSubmit, register, formState, setValue } = useForm({
+    defaultValues: { username: "", password: "" },
+  });
   const { errors } = formState;
+  const { login, isLoading } = useLogin();
   const navigate = useNavigate();
+  if (isLoading) return null;
 
-  function onSubmit() {
-    navigate("/");
+  function onSubmit(data, event) {
+    login(data);
+    navigate("/employee/part-a");
   }
 
   return (
-    <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
-      <FormRow
-        label="Enter username:"
-        key="username"
-        errorm={errors?.username?.message}
-      >
-        <Input
-          id="username"
-          type="text"
-          {...register("username", { required: "Please provide username" })}
-        />
-      </FormRow>
-      <FormRow
-        label="Enter password:"
-        key="password"
-        errorm={errors?.password?.message}
-      >
-        <Input
-          id="password"
-          type="text"
-          {...register("password", { required: "Please provide password" })}
-        />
-      </FormRow>
-      <StyledLink to="forgot-password">Forgot Password</StyledLink>
-      <Button>Submit</Button>
-    </StyledLoginForm>
+    <>
+      <Header>Login</Header>
+      <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
+        <FormRow
+          label="Enter username:"
+          key="username"
+          errorm={errors?.username?.message}
+        >
+          <Input
+            id="username"
+            type="text"
+            onChange={(e) => setValue("username", e.target.value)}
+            disabled={isLoading}
+            {...register("username", { required: "Please provide username" })}
+          />
+        </FormRow>
+        <FormRow
+          label="Enter password:"
+          key="password"
+          errorm={errors?.password?.message}
+        >
+          <Input
+            id="password"
+            type="text"
+            onChange={(e) => setValue("password", e.target.value)}
+            disabled={isLoading}
+            {...register("password", { required: "Please provide password" })}
+          />
+        </FormRow>
+        <StyledLink to="forgot-password">Forgot Password</StyledLink>
+        <Button>Submit</Button>
+      </StyledLoginForm>
+      <Footer>@Copyright2024</Footer>
+    </>
   );
 }

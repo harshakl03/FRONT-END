@@ -49,12 +49,16 @@ const StyledLink = styled(Link)`
   text-decoration: underline;
   display: flex;
   justify-content: center;
-  width: auto;
-  opacity: 50%;
+  width: 50%;
+  text-align: center;
+  margin-left: 105px;
+  opacity: 100%;
+  border-radius: 30px;
 
   &:hover {
-    opacity: 100%;
+    opacity: 85%;
     background-color: #cccccc;
+    border-radius: 30px;
   }
 `;
 

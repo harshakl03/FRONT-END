@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { authenticateUserData } from "../../utils/apiLoginRegister";
+import { authenticatedUserData } from "../../utils/apiLoginRegister";
 
 export default function useLoginData() {
   const { data, isLoading } = useQuery({
     queryKey: ["login"],
-    queryFn: authenticateUserData,
+    queryFn: authenticatedUserData,
   });
 
   return { data, isLoading };

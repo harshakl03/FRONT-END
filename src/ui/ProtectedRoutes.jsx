@@ -8,9 +8,9 @@ export default function ProtectedRoutes({ children }) {
 
   useEffect(
     function () {
-      if (data?.statuscode !== 200 && !isLoading) navigate("/login");
+      if (data?.error && !isLoading) navigate("/login");
     },
-    [data?.statuscode, navigate, isLoading]
+    [data?.error, navigate, isLoading]
   );
 
   if (isLoading) return null;

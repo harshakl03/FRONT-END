@@ -2,6 +2,7 @@ import { Input } from "../ui/Input";
 import Button, { ButtonRow } from "../ui/Button";
 import Label from "../ui/Label";
 import styled from "styled-components";
+import useLoginData from "../features/Login-and-Register/useLoginData";
 
 const StyledHome = styled.div`
   display: flex;
@@ -20,14 +21,27 @@ const Image = styled.img`
 `;
 
 export default function Home() {
+  const { data, isLoading } = useLoginData();
+
+  if (isLoading) return null;
+
   return (
     <StyledHome>
       <h1>Home</h1>
       <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
-      <ButtonRow>
-        <Button to="/login">Log In</Button>
-        <Button to="/register">Register</Button>
-      </ButtonRow>
+      {data?.error ? (
+        <ButtonRow>
+          <Button to="/login">Log In</Button>
+          <Button to="/register">Register</Button>
+        </ButtonRow>
+      ) : (
+        <>
+          <h1>Welcome</h1>
+          <ButtonRow>
+            <Button to="/employee/part-a">Apply Form</Button>
+          </ButtonRow>
+        </>
+      )}
     </StyledHome>
   );
 }

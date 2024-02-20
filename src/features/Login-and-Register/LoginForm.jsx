@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import useLoginData from "./useLoginData";
 import useLogin from "./useLogin";
+import { useEffect } from "react";
+import Back from "../../ui/Back";
 
 const StyledLoginForm = styled.form`
   display: flex;
@@ -68,16 +70,30 @@ export default function LoginForm() {
   });
   const { errors } = formState;
   const { login, isLoading } = useLogin();
+  const { data: loginData, isLoading: isLoadingLogin } = useLoginData();
   const navigate = useNavigate();
-  if (isLoading) return null;
+
+  useEffect(
+    function () {
+      if (!loginData?.error) navigate("/");
+    },
+    [loginData?.error, navigate]
+  );
+
+  if (isLoading || isLoadingLogin) return null;
 
   function onSubmit(data, event) {
     login(data);
-    navigate("/employee/part-a");
+    if (loginData.error) {
+      setValue("username", "");
+      setValue("password", "");
+    }
+    //navigate("/employee/part-a");
   }
 
   return (
     <>
+      <Back onClick={() => navigate("/")} />
       <Header>Login</Header>
       <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
         <FormRow

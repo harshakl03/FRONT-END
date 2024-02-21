@@ -2,16 +2,12 @@ import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const coolShadow = keyframes`
-  0% {
+  from{
     transform: scale(1);
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
   }
-  50% {
-    transform: scale(1.0125);
-    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.7);
-  }
-  100% {
-    transform: scale(1);
+  to{
+    transform: scale(1.05);
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
   }
 `;
@@ -33,7 +29,7 @@ const Button = styled.button`
   overflow: hidden;
 
   &:hover {
-    animation: ${coolShadow} 0.5s ease;
+    animation: ${coolShadow} 1s ease;
   }
 
   &:focus {
@@ -64,7 +60,7 @@ const ButtonLink = styled(Link)`
   overflow: hidden;
 
   &:hover {
-    animation: ${coolShadow} 0.5s forwards;
+    animation: ${coolShadow} 0.5s;
   }
 
   &:focus {

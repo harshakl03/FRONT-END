@@ -3,6 +3,8 @@ import Button, { ButtonRow } from "../ui/Button";
 import Label from "../ui/Label";
 import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
+import Profile from "../ui/Profile";
+import { Footer } from "../ui/Stylers";
 
 const StyledHome = styled.div`
   display: flex;
@@ -26,22 +28,26 @@ export default function Home() {
   if (isLoading) return null;
 
   return (
-    <StyledHome>
-      <h1>Home</h1>
-      <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
-      {data?.error ? (
-        <ButtonRow>
-          <Button to="/login">Log In</Button>
-          <Button to="/register">Register</Button>
-        </ButtonRow>
-      ) : (
-        <>
-          <h1>Welcome</h1>
+    <>
+      <StyledHome>
+        <h1>Home</h1>
+        <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
+        {data?.error ? (
           <ButtonRow>
-            <Button to="/employee/part-a">Apply Form</Button>
+            <Button to="/login">Log In</Button>
+            <Button to="/register">Register</Button>
           </ButtonRow>
-        </>
-      )}
-    </StyledHome>
+        ) : (
+          <>
+            <Profile />
+            <h1>Welcome</h1>
+            <ButtonRow>
+              <Button to="/employee/part-a">Apply Form</Button>
+            </ButtonRow>
+          </>
+        )}
+      </StyledHome>
+      <Footer>@Copyright2024</Footer>
+    </>
   );
 }

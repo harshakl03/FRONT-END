@@ -1,5 +1,5 @@
 export function authenticatedUserData() {
-  const data = { error: true, message: "Please login" };
+  const data = { error: false, message: "Please login" };
   return data;
 }
 

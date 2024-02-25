@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft } from "react-icons/fa";
 
 const StyledBack = styled.div`
   background-color: #ffffff;
@@ -18,7 +18,6 @@ const StyledBack = styled.div`
   &:hover {
     background-color: #282828;
     color: #ffffff;
-  
   }
 
   &:focus {
@@ -31,5 +30,10 @@ const BackIcon = styled(FaArrowLeft)`
 `;
 
 export default function Back({ onClick }) {
-  return <StyledBack onClick={onClick}><BackIcon /></StyledBack>;
+  return (
+    <StyledBack onClick={onClick}>
+      <BackIcon />
+      Back
+    </StyledBack>
+  );
 }

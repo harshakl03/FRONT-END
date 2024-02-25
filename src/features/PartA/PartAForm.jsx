@@ -170,7 +170,6 @@ export default function PartAForm() {
           )}
         </ButtonRow>
       </Form>
-      <Footer>@Copyright2024</Footer>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const ErrorMessage = styled.p`
-  color: #ff0000;
+  color: #d80e0e;
 `;
 
 export default function ErrorElement({ message }) {

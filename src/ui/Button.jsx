@@ -29,7 +29,8 @@ const Button = styled.button`
   overflow: hidden;
 
   &:hover {
-    animation: ${coolShadow} 1s ease;
+    //animation: ${coolShadow} 1s ease;
+    transform: scale(1.05);
   }
 
   &:focus {
@@ -60,7 +61,8 @@ const ButtonLink = styled(Link)`
   overflow: hidden;
 
   &:hover {
-    animation: ${coolShadow} 0.5s;
+    //animation: ${coolShadow} 0.5s;
+    transform: scale(1.05);
   }
 
   &:focus {

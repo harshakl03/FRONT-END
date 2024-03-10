@@ -6,17 +6,24 @@ const StyledList = styled.ul`
   position: fixed;
   top: ${(props) => props.position.y}px;
   right: ${(props) => props.position.x}px;
-  //edit from here
-  background-color: thistle;
-  width: 200px;
+  background-color: #b3b3b380;
+  width: 175px;
+  height: auto;
+  border-radius: 10px;
+  text-align: center;
 `;
 
 const List = styled.li`
-  //edit from here
   margin: 5px;
   padding: 5px;
-  border: solid;
+  border: 0.75px solid #3A77F7;
+  border-radius: 20px;
+  color: #000000;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: #fafafa;
 `;
+
 
 //don't touch
 export default function ProfileModal({ isOpen, position, setIsOpen }) {

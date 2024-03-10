@@ -1,14 +1,16 @@
 import styled from "styled-components";
+import ProfileModal from "./ProfileModal";
+import { useState } from "react";
 
 const ProfileImage = styled.img`
-  position: absolute;
+  position: fixed;
   top: 4px;
   right: 5px;
   border-radius: 50%;
   margin-right: 5px;
   margin-top: 5px;
   border: 2px solid #272727;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
   height: 60px;
   width: 60px;
   transition: all 0.5s;
@@ -20,11 +22,32 @@ const ProfileImage = styled.img`
 `;
 
 export default function Profile() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [position, setPosition] = useState(null);
+
+  function handleClick(e) {
+    const rect = e.target.closest("img").getBoundingClientRect();
+    setPosition({
+      x: window.innerWidth - rect.width - rect.x + 30,
+      y: rect.y + rect.height + 5,
+    });
+    setIsOpen((prev) => !prev);
+  }
+
   return (
-    <ProfileImage
-      src="\profile-11446-15299734327876804163.jpg"
-      alt="profile"
-      onClick={() => alert("Profile clicked")}
-    />
+    <>
+      <ProfileImage
+        name="profile"
+        src="\profile-11446-15299734327876804163.jpg"
+        alt="profile"
+        onClick={handleClick}
+      />
+      <ProfileModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        position={position}
+        setPosition={setPosition}
+      />
+    </>
   );
 }

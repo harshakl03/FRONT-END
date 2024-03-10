@@ -4,6 +4,6 @@ export function authenticatedUserData() {
 }
 
 export function authenticateUser({ username, password }) {
-  if (username === "sharad" && password === "gay") return { error: false };
+  if (username === "suraj" && password === "gay") return { error: false };
   else throw new Error("Provided username or password is wrong");
 }

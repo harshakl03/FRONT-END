@@ -15,6 +15,7 @@ const StyledList = styled.ul`
   width: 175px;
   height: auto;
   border-radius: 10px;
+  border: 0.5px solid #3a77f7;
   text-align: center;
 `;
 

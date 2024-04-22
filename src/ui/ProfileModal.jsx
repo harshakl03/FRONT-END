@@ -4,9 +4,14 @@ import styled from "styled-components";
 
 const StyledList = styled.ul`
   position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   top: ${(props) => props.position.y}px;
   right: ${(props) => props.position.x}px;
   background-color: #b3b3b380;
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 175px;
   height: auto;
   border-radius: 10px;
@@ -14,16 +19,23 @@ const StyledList = styled.ul`
 `;
 
 const List = styled.li`
-  margin: 5px;
+  cursor: pointer;
+  margin: 3px;
+  width: 85%;
   padding: 5px;
-  border: 0.75px solid #3A77F7;
-  border-radius: 20px;
+  border: 0.75px solid #3a77f7;
+  border-radius: 10px;
   color: #000000;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   background-color: #fafafa;
-`;
 
+  &:hover {
+    color: white;
+    background-color: #282828;
+    border-color: yellow;
+  }
+`;
 
 //don't touch
 export default function ProfileModal({ isOpen, position, setIsOpen }) {

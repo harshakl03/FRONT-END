@@ -25,7 +25,7 @@ const Image = styled.img`
 export default function Home() {
   const { data, isLoading } = useLoginData();
 
-  if (isLoading) return null;
+  if (isLoading) return <h1>Loading</h1>;
 
   return (
     <>

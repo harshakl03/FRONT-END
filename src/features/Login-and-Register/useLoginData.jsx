@@ -7,5 +7,6 @@ export default function useLoginData() {
     queryFn: authenticatedUserData,
   });
 
+  console.log(isLoading);
   return { data, isLoading };
 }

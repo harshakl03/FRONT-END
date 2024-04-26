@@ -24,6 +24,7 @@ const Image = styled.img`
 
 export default function Home() {
   const { data, isLoading } = useLoginData();
+  //console.log(data);
   if (isLoading) return <h1>Loading</h1>;
 
   return (
@@ -31,7 +32,7 @@ export default function Home() {
       <StyledHome>
         <h1>Home</h1>
         <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
-        {data.error === true || data.error === undefined ? (
+        {data.error === true || typeof data.error === "undefined" ? (
           <ButtonRow>
             <Button to="/login">Log In</Button>
             <Button to="/register">Register</Button>

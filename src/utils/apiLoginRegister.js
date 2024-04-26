@@ -9,6 +9,17 @@ export async function authenticatedUserData() {
   // return data;
 }
 
+export async function userLogOut() {
+  const res = await fetch("http://localhost:3000/auth/logout", {
+    credentials: "include",
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.message);
+
+  const Udata = authenticatedUserData();
+  return Udata;
+}
+
 export async function authenticateUser({ username, password }) {
   const loginDetails = new URLSearchParams();
   loginDetails.append("vtu_id", username);
@@ -24,8 +35,6 @@ export async function authenticateUser({ username, password }) {
   });
 
   const data = await res.json();
-
-  console.log(data);
 
   if (data.error) throw new Error("Provided username or password is wrong");
 

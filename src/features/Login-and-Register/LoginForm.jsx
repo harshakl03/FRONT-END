@@ -80,15 +80,16 @@ export default function LoginForm() {
     [loginData?.error, navigate]
   );
 
-  if (isLoading || isLoadingLogin) return null;
+  if (isLoadingLogin) return null;
 
   function onSubmit(data, event) {
-    login(data);
-    if (loginData.error) {
-      setValue("username", "");
-      setValue("password", "");
-    }
-    //navigate("/employee/part-a");
+    event.preventDefault();
+    login(data, {
+      onSettled: () => {
+        setValue("username", "");
+        setValue("password", "");
+      },
+    });
   }
 
   return (
@@ -104,6 +105,7 @@ export default function LoginForm() {
           <Input
             id="username"
             type="text"
+            autoComplete="username"
             onChange={(e) => setValue("username", e.target.value)}
             disabled={isLoading}
             {...register("username", { required: "Please provide username" })}
@@ -117,13 +119,14 @@ export default function LoginForm() {
           <Input
             id="password"
             type="text"
+            autoComplete="password"
             onChange={(e) => setValue("password", e.target.value)}
             disabled={isLoading}
             {...register("password", { required: "Please provide password" })}
           />
         </FormRow>
         <StyledLink to="forgot-password">Forgot Password</StyledLink>
-        <Button>Submit</Button>
+        <Button disabled={isLoading}>Submit</Button>
       </StyledLoginForm>
       <Footer>@Copyright2024</Footer>
     </>

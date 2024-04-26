@@ -11,6 +11,8 @@ export default function useLogOut() {
     onSuccess: (data) => {
       //console.log(data);
       toast.success("Logged out successfully");
+      localStorage.removeItem("part-a");
+      localStorage.removeItem("part-a/submitted");
       navigate("/");
       query.setQueriesData(["login"], data);
     },

@@ -9,7 +9,7 @@ export default function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: (data) => authenticateUser(data),
     onSuccess: (data) => {
-      console.log(data);
+      //console.log(data);
       toast.success("Logged in successfully");
       navigate("/");
       query.setQueriesData(["login"], data);

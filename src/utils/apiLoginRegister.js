@@ -1,11 +1,11 @@
 export function authenticatedUserData() {
-  const res = fetch("http://localhost:3000/auth/secret");
-  const data = res.json();
-  console.log(data);
-  return data;
+  // const res = fetch("http://localhost:3000/auth/secret");
+  // const data = res.json();
+  // console.log(data);
+  // return data;
 
-  //const data = { error: true, message: "Please login" };
-  //return data;
+  const data = { error: true, message: "Please login" };
+  return data;
 }
 
 export async function authenticateUser({ username, password }) {
@@ -17,7 +17,9 @@ export async function authenticateUser({ username, password }) {
     body: loginDetails,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      "Access-Control-Allow-Credentials": "true",
     },
+    credentials: 'include'
   });
 
   const data = await res.json();

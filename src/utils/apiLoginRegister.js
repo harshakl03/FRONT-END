@@ -1,11 +1,12 @@
-export function authenticatedUserData() {
-  // const res = fetch("http://localhost:3000/auth/secret");
-  // const data = res.json();
-  // console.log(data);
-  // return data;
-
-  const data = { error: true, message: "Please login" };
+export async function authenticatedUserData() {
+  const res = await fetch("http://localhost:3000/auth/secret", {
+    credentials: "include",
+  });
+  const data = await res.json();
   return data;
+
+  // const data = { error: true, message: "Please login" };
+  // return data;
 }
 
 export async function authenticateUser({ username, password }) {
@@ -19,7 +20,7 @@ export async function authenticateUser({ username, password }) {
       "Content-Type": "application/x-www-form-urlencoded",
       "Access-Control-Allow-Credentials": "true",
     },
-    credentials: 'include'
+    credentials: "include",
   });
 
   const data = await res.json();

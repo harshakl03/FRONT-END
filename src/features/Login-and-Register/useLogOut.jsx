@@ -13,6 +13,7 @@ export default function useLogOut() {
       toast.success("Logged out successfully");
       localStorage.removeItem("part-a");
       localStorage.removeItem("part-a/submitted");
+      localStorage.removeItem("vtu-id");
       navigate("/");
       query.setQueriesData(["login"], data);
     },

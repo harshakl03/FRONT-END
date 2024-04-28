@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import useLogOut from "../features/Login-and-Register/useLogOut";
+import { useNavigate } from "react-router-dom";
 
 const StyledList = styled.ul`
   position: fixed;
@@ -42,6 +43,7 @@ const List = styled.li`
 //don't touch
 export default function ProfileModal({ isOpen, position, setIsOpen }) {
   const ref = useRef();
+  const navigate = useNavigate();
   const { logout, isLoading } = useLogOut();
   useEffect(
     function () {
@@ -74,7 +76,7 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
   if (isOpen)
     return createPortal(
       <StyledList position={position} ref={ref}>
-        <List>Your profile</List>
+        <List onClick={() => navigate("/employee/part-a")}>Your profile</List>
         <List>Settings</List>
         <List>Theme</List>
         <List onClick={handleLogOut}>{isLoading ? "Loading" : "Logout"}</List>

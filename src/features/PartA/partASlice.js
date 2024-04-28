@@ -34,7 +34,7 @@ const initialState = {
     value: 0,
     required: true,
     field: "input",
-    type: "number",
+    type: "text",
   },
   emergency_mobile: {
     label: "Enter Emergency Mobile Number:",
@@ -56,13 +56,6 @@ const initialState = {
     required: true,
     field: "input",
     type: "text",
-  },
-  aadhar: {
-    label: "Enter Aadhaar:",
-    value: "",
-    required: true,
-    field: "input",
-    type: "number",
   },
   pan_number: {
     label: "Enter Pan Number:",

@@ -1,6 +1,4 @@
-import { Input } from "../ui/Input";
 import Button, { ButtonRow } from "../ui/Button";
-import Label from "../ui/Label";
 import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
 import Profile from "../ui/Profile";
@@ -26,7 +24,7 @@ export default function Home() {
   const { data, isLoading } = useLoginData();
   //console.log(data);
   if (isLoading) return <h1>Loading</h1>;
-
+  if (data?.payload) localStorage.setItem("vtu-id", data.payload.vtu_id);
   return (
     <>
       <StyledHome>
@@ -42,7 +40,7 @@ export default function Home() {
             <Profile />
             <h1>Welcome</h1>
             <ButtonRow>
-              <Button to="/employee/part-a">Apply Form</Button>
+              <Button to="/employee/part-b/cat1">Apply Form</Button>
             </ButtonRow>
           </>
         )}

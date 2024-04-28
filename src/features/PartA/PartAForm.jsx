@@ -1,68 +1,55 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  HiOutlineArrowRightCircle,
-  HiOutlineCheckCircle,
-  HiOutlinePencilSquare,
-} from "react-icons/hi2";
-import { Input, FileInput } from "../../ui/Input";
+import { useSelector } from "react-redux";
+import { HiOutlineCheckCircle, HiOutlinePencilSquare } from "react-icons/hi2";
+import { Input } from "../../ui/Input";
 import { TextArea } from "../../ui/TextArea";
 import React, { useEffect, useState } from "react";
 import Button, { ButtonRow } from "../../ui/Button";
-import { addPartA } from "./partASlice";
-import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
 import { Header } from "../../ui/Stylers";
-import { Footer } from "../../ui/Stylers";
+import useEmployeeData from "./useEmployeeData";
+import useEditEmployee from "./useEditEmployee";
+import Back from "../../ui/Back";
+import { useNavigate } from "react-router-dom";
 
 export default function PartAForm() {
   const data = useSelector((state) => state.partA);
-  const [submitted, setSubmitted] = useState(
-    JSON.parse(localStorage.getItem("part-a/submitted"))
-  );
-  const { handleSubmit, register, formState } = useForm({
-    defaultValues:
-      (JSON.parse(localStorage.getItem("part-a/submitted")) &&
-        JSON.parse(localStorage.getItem("part-a"))) ||
-      {},
+  const { data: employeeData, isLoading } = useEmployeeData();
+  const [submitted, setSubmitted] = useState(true);
+  const { handleSubmit, register, formState, setValue } = useForm({
+    defaultValues: employeeData,
+    //   (JSON.parse(localStorage.getItem("part-a/submitted")) &&
+    //     JSON.parse(localStorage.getItem("part-a"))) ||
+    //   {},
   });
   const { errors } = formState;
+  const { editEmployee, isLoading: isEditing } = useEditEmployee();
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  const getSubmit = localStorage.getItem("part-a/submitted");
-
-  useEffect(
-    function () {
-      if (!JSON.parse(localStorage.getItem("part-a"))) {
-        localStorage.removeItem("part-a/submitted");
-      }
-      if (!JSON.parse(getSubmit)) {
-        localStorage.removeItem("part-a");
-      }
-      setSubmitted(JSON.parse(getSubmit));
-    },
-    [getSubmit]
-  );
+  useEffect(() => {
+    if ((!isLoading || isEditing) && employeeData) {
+      Object.keys(employeeData).map((key) => setValue(key, employeeData[key]));
+    }
+  }, [isLoading, setValue, employeeData, isEditing]);
 
   function handleEdit(e) {
     e.preventDefault();
-    localStorage.setItem("part-a/submitted", false);
     setSubmitted(false);
   }
 
   function onSubmit(data) {
-    if (!JSON.parse(localStorage.getItem("part-a/submitted"))) {
-      dispatch(addPartA(data));
-      localStorage.setItem("part-a", JSON.stringify(data));
-      localStorage.setItem("part-a/submitted", true);
-      toast.success("Form Added Successfully");
+    if (!submitted) {
+      editEmployee(data);
+      setSubmitted(true);
     }
     return;
   }
 
+  if (isLoading || isEditing) return <h1>Loading</h1>;
   return (
-    <>
+    <div>
+      <Back onClick={() => navigate("/")} />
       <Header>FACULTY DETAILS</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {Object.keys(data).map((field) => (
@@ -75,7 +62,7 @@ export default function PartAForm() {
               <Input
                 type={data[field].type}
                 id={field}
-                disabled={submitted}
+                disabled={field === "pan_number" ? true : submitted}
                 {...register(field, { required: data[field].required })}
               />
             )}
@@ -87,70 +74,22 @@ export default function PartAForm() {
                 {...register(field, { required: data[field].required })}
               />
             )}
+            {field === "pan_number" && (
+              <div
+                style={{
+                  color: "blue",
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  fontStyle: "italic",
+                  fontWeight: "bold",
+                }}
+              >
+                The above field cannot be edited
+              </div>
+            )}
           </FormRow>
         ))}
-
-        {/* WITHOUT USING MAP
-      <FormRow label="Enter your Id" error={errors?.id?.type}>
-        <Input type="text" id="id" {...register("id", { required: true })} />
-      </FormRow>
-      <FormRow label="Enter your VTU Id" error={errors?.vtu_id?.type}>
-        <Input
-          type="text"
-          id="id"
-          {...register("vtu_id", { required: true })}
-        />
-      </FormRow>
-      <FormRow label="Enter your Full Name" error={errors?.full_name?.type}>
-        <Input
-          type="text"
-          id="id"
-          {...register("full_name", {
-            required: true,
-          })}
-        />
-      </FormRow>
-      <FormRow label="Enter your Father Name" error={errors?.father_name?.type}>
-        <Input type="text" id="id" {...register("father_name")} />
-      </FormRow>
-      <FormRow label="Enter your Mother Name" error={errors?.mother_name?.type}>
-        <Input type="text" id="id" {...register("mother_name")} />
-      </FormRow>
-      <FormRow label="Enter your Mobile Number" error={errors?.mobile?.type}>
-        <Input
-          type="text"
-          id="id"
-          {...register("mobile", { required: true })}
-        />
-      </FormRow>
-      <FormRow
-        label="Enter your Emergency Mobile Number"
-        error={errors?.emergency_mobile?.type}
-      >
-        <Input
-          type="text"
-          id="id"
-          {...register("emergency_mobile", {
-            required: true,
-          })}
-        />
-      </FormRow>
-      <FormRow label="Enter your Personal Address" error={errors?.pad?.type}>
-        <Input type="text" id="id" {...register("pad", { required: true })} />
-      </FormRow>
-      <FormRow
-        label="Enter your Email Address"
-        error={errors?.email_address?.type}
-      >
-        <Input
-          type="text"
-          id="id"
-          {...register("email_address", {
-            required: true,
-          })}
-        />
-      </FormRow>
-      */}
 
         {/* IMAGE PICKER
        <FileInput type="file" name="Choose image" id="image" accept="image/*" />*/}
@@ -160,16 +99,12 @@ export default function PartAForm() {
               <Button onClick={handleEdit} icon={<HiOutlinePencilSquare />}>
                 Edit
               </Button>
-              <Button to="/employee/part-b/cat1">
-                Next
-                <HiOutlineArrowRightCircle />
-              </Button>
             </>
           ) : (
             <Button icon={<HiOutlineCheckCircle />}>Submit</Button>
           )}
         </ButtonRow>
       </Form>
-    </>
+    </div>
   );
 }

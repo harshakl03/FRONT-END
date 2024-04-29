@@ -9,14 +9,18 @@ export async function authenticatedUserData() {
   // return data;
 }
 
-export async function userLogOut() {
+export async function logOut() {
   const res = await fetch("http://localhost:3000/auth/logout", {
     credentials: "include",
   });
   const data = await res.json();
   if (data.error) throw new Error(data.message);
+  return data;
+}
 
-  const Udata = authenticatedUserData();
+export async function userLogOut() {
+  await logOut();
+  const Udata = await authenticatedUserData();
   return Udata;
 }
 

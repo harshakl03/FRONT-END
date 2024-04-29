@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { HiOutlineCheckCircle, HiOutlinePencilSquare } from "react-icons/hi2";
 import { Input } from "../../ui/Input";
 import { TextArea } from "../../ui/TextArea";
@@ -13,15 +12,69 @@ import useEditEmployee from "./useEditEmployee";
 import Back from "../../ui/Back";
 import { useNavigate } from "react-router-dom";
 
+const formSchema = {
+  vtu_id: {
+    label: "Enter VTU Id:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  full_name: {
+    label: "Enter Full Name:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  father_name: {
+    label: "Enter Father Name:",
+    required: false,
+    field: "input",
+    type: "text",
+  },
+  mother_name: {
+    label: "Enter Mother Name:",
+    required: false,
+    field: "input",
+    type: "text",
+  },
+  mobile: {
+    label: "Enter Mobile Number:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  emergency_mobile: {
+    label: "Enter Emergency Mobile Number:",
+    required: true,
+    field: "input",
+    type: "number",
+  },
+  pad: {
+    label: "Enter Personal Address:",
+    required: true,
+    field: "text-area",
+    type: "text",
+  },
+  email_address: {
+    label: "Enter Email Address:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+  pan_number: {
+    label: "Enter Pan Number:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
+};
+
 export default function PartAForm() {
-  const data = useSelector((state) => state.partA);
+  //const data = useSelector((state) => state.partA);
   const { data: employeeData, isLoading } = useEmployeeData();
   const [submitted, setSubmitted] = useState(true);
   const { handleSubmit, register, formState, setValue } = useForm({
     defaultValues: employeeData,
-    //   (JSON.parse(localStorage.getItem("part-a/submitted")) &&
-    //     JSON.parse(localStorage.getItem("part-a"))) ||
-    //   {},
   });
   const { errors } = formState;
   const { editEmployee, isLoading: isEditing } = useEditEmployee();
@@ -52,29 +105,35 @@ export default function PartAForm() {
       <Back onClick={() => navigate("/")} />
       <Header>FACULTY DETAILS</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {Object.keys(data).map((field) => (
+        {Object.keys(formSchema).map((field) => (
           <FormRow
             key={field}
-            label={`${data[field].label}${data[field].required ? "*" : ""}`}
+            label={`${formSchema[field].label}${
+              formSchema[field].required ? "*" : ""
+            }`}
             error={errors?.[field]?.type}
           >
-            {data[field].field === "input" && (
+            {formSchema[field].field === "input" && (
               <Input
-                type={data[field].type}
+                type={formSchema[field].type}
                 id={field}
-                disabled={field === "pan_number" ? true : submitted}
-                {...register(field, { required: data[field].required })}
+                disabled={
+                  field === "pan_number" || field === "vtu_id"
+                    ? true
+                    : submitted
+                }
+                {...register(field, { required: formSchema[field].required })}
               />
             )}
-            {data[field].field === "text-area" && (
+            {formSchema[field].field === "text-area" && (
               <TextArea
-                type={data[field].type}
+                type={formSchema[field].type}
                 id={field}
                 disabled={submitted}
-                {...register(field, { required: data[field].required })}
+                {...register(field, { required: formSchema[field].required })}
               />
             )}
-            {field === "pan_number" && (
+            {(field === "pan_number" || field === "vtu_id") && (
               <div
                 style={{
                   color: "blue",

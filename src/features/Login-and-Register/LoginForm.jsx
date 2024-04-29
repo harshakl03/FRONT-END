@@ -118,7 +118,7 @@ export default function LoginForm() {
         >
           <Input
             id="password"
-            type="text"
+            type="password"
             autoComplete="password"
             onChange={(e) => setValue("password", e.target.value)}
             disabled={isLoading}

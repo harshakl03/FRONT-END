@@ -3,6 +3,8 @@ import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
 import Profile from "../ui/Profile";
 import { Footer } from "../ui/Stylers";
+import { useEffect } from "react";
+import { logOut } from "../utils/apiLoginRegister";
 
 const StyledHome = styled.div`
   display: flex;
@@ -23,6 +25,10 @@ const Image = styled.img`
 export default function Home() {
   const { data, isLoading } = useLoginData();
   //console.log(data);
+  useEffect(() => {
+    if (data?.payload?.vtu_id !== localStorage.getItem("vtu-id")) logOut();
+  }, [data?.payload?.vtu_id]);
+
   if (isLoading) return <h1>Loading</h1>;
   if (data?.payload) localStorage.setItem("vtu-id", data.payload.vtu_id);
   return (

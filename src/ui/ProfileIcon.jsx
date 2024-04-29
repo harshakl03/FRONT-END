@@ -21,7 +21,7 @@ const ProfileImage = styled.img`
   }
 `;
 
-export default function Profile() {
+export default function ProfileIcon() {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState(null);
 

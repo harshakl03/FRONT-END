@@ -1,7 +1,7 @@
 import Button, { ButtonRow } from "../ui/Button";
 import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
-import Profile from "../ui/Profile";
+import ProfileIcon from "../ui/ProfileIcon";
 import { Footer } from "../ui/Stylers";
 import { useEffect } from "react";
 import { logOut } from "../utils/apiLoginRegister";
@@ -24,13 +24,14 @@ const Image = styled.img`
 
 export default function Home() {
   const { data, isLoading } = useLoginData();
-  //console.log(data);
-  useEffect(() => {
-    if (data?.payload?.vtu_id !== localStorage.getItem("vtu-id")) logOut();
-  }, [data?.payload?.vtu_id]);
+
+  // useEffect(() => {
+  //   if (data?.payload?.vtu_id !== localStorage.getItem("vtu-id")) logOut();
+  // }, [data?.payload?.vtu_id]);
 
   if (isLoading) return <h1>Loading</h1>;
   if (data?.payload) localStorage.setItem("vtu-id", data.payload.vtu_id);
+
   return (
     <>
       <StyledHome>
@@ -43,7 +44,7 @@ export default function Home() {
           </ButtonRow>
         ) : (
           <>
-            <Profile />
+            <ProfileIcon />
             <h1>Welcome</h1>
             <ButtonRow>
               <Button to="/employee/part-b/cat1">Apply Form</Button>

@@ -125,7 +125,7 @@ export default function LoginForm() {
             {...register("password", { required: "Please provide password" })}
           />
         </FormRow>
-        <StyledLink to="forgot-password">Forgot Password</StyledLink>
+        <StyledLink to="/forgot-password">Forgot Password</StyledLink>
         <Button disabled={isLoading}>Submit</Button>
       </StyledLoginForm>
       <Footer>@Copyright2024</Footer>

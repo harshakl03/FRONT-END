@@ -76,10 +76,31 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
   if (isOpen)
     return createPortal(
       <StyledList position={position} ref={ref}>
-        <List onClick={() => navigate("/employee/part-a")}>Your profile</List>
-        <List>Settings</List>
+        <List
+          onClick={() => {
+            navigate("/employee/profile/form");
+            setIsOpen(false);
+          }}
+        >
+          Your profile
+        </List>
+        <List
+          onClick={() => {
+            navigate("/employee/profile/settings");
+            setIsOpen(false);
+          }}
+        >
+          Settings
+        </List>
         <List>Theme</List>
-        <List onClick={handleLogOut}>{isLoading ? "Loading" : "Logout"}</List>
+        <List
+          onClick={() => {
+            handleLogOut();
+            setIsOpen(false);
+          }}
+        >
+          {isLoading ? "Loading" : "Logout"}
+        </List>
       </StyledList>,
       document.body
     );

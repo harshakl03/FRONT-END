@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import PartA from "./pages/PartA";
+import Profile from "./pages/Profile";
 import PartBCat1 from "./pages/PartBCat1";
 import PartBCat2 from "./pages/PartBCat2";
 import PartBCat3 from "./pages/PartBCat3";
@@ -15,6 +15,9 @@ import GloblaStyles from "./Styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ChangePasswordForm from "./features/Profile/ChangePasswordForm";
+import SettingsLayout from "./ui/SettingsLayout";
+import ForgotPasswordForm from "./features/Profile/ForgotPasswordForm";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -40,8 +43,18 @@ export default function App() {
               </ProtectedRoutes>
             }
           >
-            <Route index element={<Navigate to="part-a" />} />
-            <Route path="part-a" element={<PartA />} />
+            <Route index element={<Navigate to="part-b" />} />
+            <Route path="profile">
+              <Route index element={<Navigate to="form" />} />
+              <Route path="form" element={<Profile />} />
+              <Route path="settings">
+                <Route index element={<SettingsLayout />} />
+                <Route
+                  path="change-password"
+                  element={<ChangePasswordForm />}
+                />
+              </Route>
+            </Route>
             <Route path="part-b">
               <Route index element={<Navigate to="cat1" />} />
               <Route path="cat1" element={<PartBCat1 />} />
@@ -51,10 +64,8 @@ export default function App() {
             <Route path="part-c" element={<PartC />} />
             <Route path="declaration" element={<Declaration />} />
           </Route>
-          <Route path="/login">
-            <Route index element={<Login />} />
-            <Route path="forgot-password" element={<h1>FORGOT PASSWORD</h1>} />
-          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

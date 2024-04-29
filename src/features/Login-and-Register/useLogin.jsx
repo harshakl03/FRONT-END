@@ -12,7 +12,7 @@ export default function useLogin() {
       //console.log(data);
       toast.success("Logged in successfully");
       navigate("/");
-      query.setQueriesData(["login"], data);
+      query.setQueryData(["login"], data);
     },
     onError: (err) => {
       toast.error(err.message);

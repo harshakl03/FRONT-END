@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Profile from "./Profile";
+import ProfileIcon from "./ProfileIcon";
 import { Footer } from "./Stylers";
 
 export default function AppLayout() {
   return (
     <>
-      <Profile />
+      <ProfileIcon />
       <Outlet />
       <Footer>@Copyright2024</Footer>
     </>

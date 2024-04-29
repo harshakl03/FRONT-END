@@ -9,7 +9,7 @@ export default function useEditEmployee() {
   const { mutate: editEmployee, isFetching: isLoading } = useMutation({
     mutationFn: (data) => updateEmployeeDetails(data),
     onSuccess: (data) => {
-      query.setQueriesData(["employee-data"], data);
+      query.setQueryData(["employee-data"], data);
       toast.success("Form edited successfully");
     },
     onError: (err) => {

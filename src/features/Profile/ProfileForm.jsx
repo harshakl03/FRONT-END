@@ -61,15 +61,9 @@ const formSchema = {
     field: "input",
     type: "text",
   },
-  pan_number: {
-    label: "Enter Pan Number:",
-    required: true,
-    field: "input",
-    type: "text",
-  },
 };
 
-export default function PartAForm() {
+export default function ProfileForm() {
   //const data = useSelector((state) => state.partA);
   const { data: employeeData, isLoading } = useEmployeeData();
   const [submitted, setSubmitted] = useState(true);
@@ -117,11 +111,7 @@ export default function PartAForm() {
               <Input
                 type={formSchema[field].type}
                 id={field}
-                disabled={
-                  field === "pan_number" || field === "vtu_id"
-                    ? true
-                    : submitted
-                }
+                disabled={field === "vtu_id" ? true : submitted}
                 {...register(field, { required: formSchema[field].required })}
               />
             )}
@@ -133,7 +123,7 @@ export default function PartAForm() {
                 {...register(field, { required: formSchema[field].required })}
               />
             )}
-            {(field === "pan_number" || field === "vtu_id") && (
+            {field === "vtu_id" && (
               <div
                 style={{
                   color: "blue",

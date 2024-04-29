@@ -19,13 +19,15 @@ export async function updateEmployeeDetails(newData) {
   const vtuId = localStorage.getItem("vtu-id");
   const data = await getEmployeeData();
   const newObject = new URLSearchParams();
-  //const filteredData = {};
+  const filteredData = {};
   Object.keys(data).map((field) => {
     if (data[field] !== newData[field]) {
-      newObject.append(field, newData[field]);
+      filteredData[field] = newData[field];
     }
     return 0;
   });
+
+  newObject.append("EmpEditName", JSON.stringify(filteredData));
 
   const res = await fetch(`http://localhost:3000/employees/${vtuId}`, {
     method: "PATCH",

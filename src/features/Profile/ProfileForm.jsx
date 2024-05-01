@@ -63,6 +63,8 @@ const formSchema = {
   },
 };
 
+const message = "The above field is required";
+
 export default function ProfileForm() {
   //const data = useSelector((state) => state.partA);
   const { data: employeeData, isLoading } = useEmployeeData();
@@ -105,14 +107,16 @@ export default function ProfileForm() {
             label={`${formSchema[field].label}${
               formSchema[field].required ? "*" : ""
             }`}
-            error={errors?.[field]?.type}
+            error={errors?.[field]?.message}
           >
             {formSchema[field].field === "input" && (
               <Input
                 type={formSchema[field].type}
                 id={field}
                 disabled={field === "vtu_id" ? true : submitted}
-                {...register(field, { required: formSchema[field].required })}
+                {...register(field, {
+                  required: formSchema[field].required && message,
+                })}
               />
             )}
             {formSchema[field].field === "text-area" && (
@@ -120,7 +124,9 @@ export default function ProfileForm() {
                 type={formSchema[field].type}
                 id={field}
                 disabled={submitted}
-                {...register(field, { required: formSchema[field].required })}
+                {...register(field, {
+                  required: formSchema[field].required && message,
+                })}
               />
             )}
             {field === "vtu_id" && (

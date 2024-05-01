@@ -4,9 +4,5 @@ const ErrorMessage = styled.p`
 `;
 
 export default function ErrorElement({ message }) {
-  return (
-    <ErrorMessage>
-      {message ? message : "The above field is required"}
-    </ErrorMessage>
-  );
+  return <ErrorMessage>{message}</ErrorMessage>;
 }

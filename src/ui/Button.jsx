@@ -12,7 +12,7 @@ const coolShadow = keyframes`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   color: white;
   width: 150px;
   margin-top: 10px;

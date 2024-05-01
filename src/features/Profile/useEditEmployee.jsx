@@ -10,7 +10,7 @@ export default function useEditEmployee() {
     mutationFn: (data) => updateEmployeeDetails(data),
     onSuccess: (data) => {
       query.setQueryData(["employee-data"], data);
-      toast.success("Form edited successfully");
+      toast.success("Profile data updated successfully");
     },
     onError: (err) => {
       console.log(err);

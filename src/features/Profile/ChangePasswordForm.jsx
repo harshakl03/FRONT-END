@@ -3,42 +3,22 @@ import Back from "../../ui/Back";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import { Header } from "../../ui/Stylers";
-import Button, { ButtonRow } from "../../ui/Button";
+import CustomButton, { ButtonRow, Button } from "../../ui/Button";
 import { Input } from "../../ui/Input";
 import Form from "../../ui/Form";
 import { useChangePassword } from "./editPassword";
 
-const formSchema = {
-  oldPassword: {
-    label: "Enter old password:",
-    required: true,
-    field: "input",
-    type: "password",
-  },
-  confirmOld: {
-    label: "Confirm old password:",
-    required: true,
-    field: "input",
-    type: "password",
-  },
-  newPassword: {
-    label: "Enter new password:",
-    required: true,
-    field: "input",
-    type: "password",
-  },
-  confirmNew: {
-    label: "Confirm new password:",
-    required: true,
-    field: "input",
-    type: "password",
-  },
+const message = "The above field is required";
+const minLength = {
+  value: 8,
+  message: "Password needs minimum of 8 characters",
 };
+const validate = "Password need to match";
 
 export default function ChangePasswordForm() {
   const navigate = useNavigate();
   const { changePassword, isLoading } = useChangePassword();
-  const { handleSubmit, register, formState, setValue } = useForm({
+  const { handleSubmit, register, formState, getValues, reset } = useForm({
     defaultValues: {},
   });
   const { errors } = formState;
@@ -47,9 +27,7 @@ export default function ChangePasswordForm() {
 
   function onSubmit(data) {
     changePassword(data, {
-      onSettled: () => {
-        Object.keys(formSchema).map((field) => setValue(field, ""));
-      },
+      onSettled: () => reset(),
     });
   }
 
@@ -58,24 +36,76 @@ export default function ChangePasswordForm() {
       <Back onClick={() => navigate("/employee/profile/settings")} />
       <Header>CHANGE PASSWORD</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {Object.keys(formSchema).map((field) => (
-          <FormRow
-            key={field}
-            label={`${formSchema[field].label}${
-              formSchema[field].required ? "*" : ""
-            }`}
-            error={errors?.[field]?.type}
-          >
-            <Input
-              type={formSchema[field].type}
-              id={field}
-              disabled={isLoading}
-              {...register(field, { required: formSchema[field].required })}
-            />
-          </FormRow>
-        ))}
+        <FormRow
+          key="oldPassword"
+          label="Enter old password:*"
+          error={errors?.oldPassword?.message}
+        >
+          <Input
+            type="password"
+            id="oldPassword"
+            disabled={isLoading}
+            {...register("oldPassword", {
+              required: message,
+              minLength: minLength,
+            })}
+          />
+        </FormRow>
+        <FormRow
+          key="confirmOld"
+          label="Confirm old password:*"
+          error={errors?.confirmOld?.message}
+        >
+          <Input
+            type="password"
+            id="confirmOld"
+            disabled={isLoading}
+            {...register("confirmOld", {
+              required: message,
+              minLength: minLength,
+              validate: (value) =>
+                value === getValues().oldPassword || validate,
+            })}
+          />
+        </FormRow>
+        <FormRow
+          key="newPassword"
+          label="Enter new password:*"
+          error={errors?.newPassword?.message}
+        >
+          <Input
+            type="password"
+            id="newPassword"
+            disabled={isLoading}
+            {...register("newPassword", {
+              required: message,
+              minLength: minLength,
+              validate: (value) =>
+                value !== getValues().oldPassword ||
+                "Old and New passwords are same",
+            })}
+          />
+        </FormRow>
+        <FormRow
+          key="confirmNew"
+          label="Confirm new password:*"
+          error={errors?.confirmNew?.message}
+        >
+          <Input
+            type="password"
+            id="confirmNew"
+            disabled={isLoading}
+            {...register("confirmNew", {
+              required: message,
+              minLength: minLength,
+              validate: (value) =>
+                value === getValues().newPassword || validate,
+            })}
+          />
+        </FormRow>
         <ButtonRow>
-          <Button>Submit</Button>
+          <Button type="reset">Cancel</Button>
+          <CustomButton>Submit</CustomButton>
         </ButtonRow>
       </Form>
     </div>

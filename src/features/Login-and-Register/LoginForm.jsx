@@ -64,6 +64,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const minLength = {
+  value: 8,
+  message: "Password needs minimum of 8 characters",
+};
+
 export default function LoginForm() {
   const { handleSubmit, register, formState, setValue } = useForm({
     defaultValues: { username: "", password: "" },
@@ -100,7 +105,7 @@ export default function LoginForm() {
         <FormRow
           label="Enter username:"
           key="username"
-          errorm={errors?.username?.message}
+          error={errors?.username?.message}
         >
           <Input
             id="username"
@@ -111,10 +116,11 @@ export default function LoginForm() {
             {...register("username", { required: "Please provide username" })}
           />
         </FormRow>
+        <hr />
         <FormRow
           label="Enter password:"
           key="password"
-          errorm={errors?.password?.message}
+          error={errors?.password?.message}
         >
           <Input
             id="password"
@@ -122,9 +128,13 @@ export default function LoginForm() {
             autoComplete="password"
             onChange={(e) => setValue("password", e.target.value)}
             disabled={isLoading}
-            {...register("password", { required: "Please provide password" })}
+            {...register("password", {
+              required: "Please provide password",
+              minLength: minLength,
+            })}
           />
         </FormRow>
+        <hr />
         <StyledLink to="/forgot-password">Forgot Password</StyledLink>
         <Button disabled={isLoading}>Submit</Button>
       </StyledLoginForm>

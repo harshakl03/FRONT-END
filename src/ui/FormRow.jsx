@@ -13,7 +13,7 @@ export default function FormRow({ label, error, children, errorm }) {
     <StyledFormRow>
       {label && <label htmlFor="id">{label}</label>}
       {children}
-      {(error || errorm) && <ErrorElement message={errorm} />}
+      {error && <ErrorElement message={error} />}
     </StyledFormRow>
   );
 }

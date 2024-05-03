@@ -32,7 +32,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <div>
-      <Back onClick={() => navigate("/employee/profile/settings")} />
+      <Back onClick={() => navigate("/profile/settings")} />
       <Header>FORGOT PASSWORD</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormRow

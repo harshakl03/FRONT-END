@@ -11,6 +11,7 @@ import Declaration from "./pages/Declaration";
 import PageNotFound from "./ui/PageNotFound";
 import ProtectedRoutes from "./ui/ProtectedRoutes";
 import AppLayout from "./ui/AppLayout";
+import AdminAccess from "./ui/AdminAccess";
 import GloblaStyles from "./Styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -18,6 +19,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ChangePasswordForm from "./features/Profile/ChangePasswordForm";
 import SettingsLayout from "./ui/SettingsLayout";
 import ForgotPasswordForm from "./features/Profile/ForgotPasswordForm";
+import RegisterUser from "./features/Admin/RegisterUser";
+import AssignRole from "./features/Admin/AssignRole";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -36,13 +39,17 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route
-            path="/employee"
+            path="/"
             element={
               <ProtectedRoutes>
                 <AppLayout />
               </ProtectedRoutes>
             }
           >
+            <Route path="admin" element={<AdminAccess />}>
+              <Route path="register-user" element={<RegisterUser />} />
+              <Route path="assign-role" element={<AssignRole />} />
+            </Route>
             <Route index element={<Navigate to="part-b" />} />
             <Route path="profile">
               <Route index element={<Navigate to="form" />} />
@@ -64,9 +71,9 @@ export default function App() {
             <Route path="part-c" element={<PartC />} />
             <Route path="declaration" element={<Declaration />} />
           </Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="register" element={<Register />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

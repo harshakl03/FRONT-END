@@ -33,7 +33,7 @@ export default function ChangePasswordForm() {
 
   return (
     <div>
-      <Back onClick={() => navigate("/employee/profile/settings")} />
+      <Back onClick={() => navigate("/profile/settings")} />
       <Header>CHANGE PASSWORD</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormRow

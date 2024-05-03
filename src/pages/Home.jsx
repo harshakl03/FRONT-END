@@ -3,8 +3,8 @@ import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
 import ProfileIcon from "../ui/ProfileIcon";
 import { Footer } from "../ui/Stylers";
-import { useEffect } from "react";
-import { logOut } from "../utils/apiLoginRegister";
+// import { useEffect } from "react";
+// import { logOut } from "../utils/apiLoginRegister";
 
 const StyledHome = styled.div`
   display: flex;
@@ -32,24 +32,39 @@ export default function Home() {
   if (isLoading) return <h1>Loading</h1>;
   if (data?.payload) localStorage.setItem("vtu-id", data.payload.vtu_id);
 
+  if (data.error === true || typeof data.error === "undefined")
+    return (
+      <>
+        <StyledHome>
+          <h1>Home</h1>
+          <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
+          <ButtonRow>
+            <Button to="/login">Log In</Button>
+            <Button to="/register">Register</Button>
+          </ButtonRow>
+        </StyledHome>
+        <Footer>@Copyright2024</Footer>
+      </>
+    );
+
   return (
     <>
       <StyledHome>
         <h1>Home</h1>
         <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
-        {data.error === true || typeof data.error === "undefined" ? (
+        <ProfileIcon />
+        <h1>Welcome</h1>
+        {data.payload.level < 4 ? (
           <ButtonRow>
-            <Button to="/login">Log In</Button>
-            <Button to="/register">Register</Button>
+            <Button to="/part-b/cat1">Apply Form</Button>
           </ButtonRow>
         ) : (
-          <>
-            <ProfileIcon />
-            <h1>Welcome</h1>
+          data.payload.level >= 4 && (
             <ButtonRow>
-              <Button to="/employee/part-b/cat1">Apply Form</Button>
+              <Button to="/admin/register-user">Register User</Button>
+              <Button to="/admin/assign-role">Assign Role</Button>
             </ButtonRow>
-          </>
+          )
         )}
       </StyledHome>
       <Footer>@Copyright2024</Footer>

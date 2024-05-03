@@ -78,7 +78,7 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
       <StyledList position={position} ref={ref}>
         <List
           onClick={() => {
-            navigate("/employee/profile/form");
+            navigate("/profile/form");
             setIsOpen(false);
           }}
         >
@@ -86,7 +86,7 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
         </List>
         <List
           onClick={() => {
-            navigate("/employee/profile/settings");
+            navigate("/profile/settings");
             setIsOpen(false);
           }}
         >

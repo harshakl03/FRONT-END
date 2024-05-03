@@ -1,16 +1,15 @@
-import { HiOutlineCheckCircle, HiOutlinePencilSquare } from "react-icons/hi2";
+import { HiOutlineCheckCircle } from "react-icons/hi2";
 import { Input } from "../../ui/Input";
 import { TextArea } from "../../ui/TextArea";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button, { ButtonRow } from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
 import { Header } from "../../ui/Stylers";
-import useEmployeeData from "./useEmployeeData";
-import useEditEmployee from "./useEditEmployee";
 import Back from "../../ui/Back";
 import { useNavigate } from "react-router-dom";
+import { useRegisterUser } from "./useAdmin";
 
 const formSchema = {
   vtu_id: {
@@ -65,41 +64,24 @@ const formSchema = {
 
 const message = "The above field is required";
 
-export default function ProfileForm() {
-  //const data = useSelector((state) => state.partA);
-  const { data: employeeData, isLoading } = useEmployeeData();
-  const [submitted, setSubmitted] = useState(true);
-  const { handleSubmit, register, formState, setValue } = useForm({
-    defaultValues: employeeData,
+export default function RegisterUser() {
+  const { handleSubmit, register, formState, reset } = useForm({
+    defaultValues: {},
   });
   const { errors } = formState;
-  const { editEmployee, isLoading: isEditing } = useEditEmployee();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if ((!isLoading || isEditing) && employeeData) {
-      Object.keys(employeeData).map((key) => setValue(key, employeeData[key]));
-    }
-  }, [isLoading, setValue, employeeData, isEditing]);
-
-  function handleEdit(e) {
-    e.preventDefault();
-    setSubmitted(false);
-  }
+  const { registerUser, isLoading } = useRegisterUser();
 
   function onSubmit(data) {
-    if (!submitted) {
-      editEmployee(data);
-      setSubmitted(true);
-    }
-    return;
+    registerUser(data, {
+      onSettled: () => reset(),
+    });
   }
 
-  if (isLoading || isEditing) return <h1>Loading</h1>;
   return (
     <div>
       <Back onClick={() => navigate("/")} />
-      <Header>FACULTY DETAILS</Header>
+      <Header>REGISTER USER</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {Object.keys(formSchema).map((field) => (
           <FormRow
@@ -113,7 +95,7 @@ export default function ProfileForm() {
               <Input
                 type={formSchema[field].type}
                 id={field}
-                disabled={field === "vtu_id" ? true : submitted}
+                disabled={isLoading}
                 {...register(field, {
                   required: formSchema[field].required && message,
                 })}
@@ -123,25 +105,11 @@ export default function ProfileForm() {
               <TextArea
                 type={formSchema[field].type}
                 id={field}
-                disabled={submitted}
+                disabled={isLoading}
                 {...register(field, {
                   required: formSchema[field].required && message,
                 })}
               />
-            )}
-            {field === "vtu_id" && (
-              <div
-                style={{
-                  color: "blue",
-                  display: "flex",
-                  alignContent: "center",
-                  justifyContent: "center",
-                  fontStyle: "italic",
-                  fontWeight: "bold",
-                }}
-              >
-                The above field cannot be edited
-              </div>
             )}
           </FormRow>
         ))}
@@ -149,15 +117,7 @@ export default function ProfileForm() {
         {/* IMAGE PICKER
        <FileInput type="file" name="Choose image" id="image" accept="image/*" />*/}
         <ButtonRow>
-          {submitted ? (
-            <>
-              <Button onClick={handleEdit} icon={<HiOutlinePencilSquare />}>
-                Edit
-              </Button>
-            </>
-          ) : (
-            <Button icon={<HiOutlineCheckCircle />}>Submit</Button>
-          )}
+          <Button icon={<HiOutlineCheckCircle />}>Register</Button>
         </ButtonRow>
       </Form>
     </div>

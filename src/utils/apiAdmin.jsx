@@ -1,3 +1,3 @@
-export async function RegisterUserApi(data) {
+export async function RegisterEmployeeApi(data) {
   console.log(data);
 }

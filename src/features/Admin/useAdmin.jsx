@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { RegisterUserApi } from "../../utils/apiAdmin";
+import { RegisterEmployeeApi } from "../../utils/apiAdmin";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export function useRegisterUser() {
+export function useRegisterEmployee() {
   const navigate = useNavigate();
-  const { mutate: registerUser, isPending: isLoading } = useMutation({
-    mutationFn: (data) => RegisterUserApi(data),
+  const { mutate: registerEmployee, isPending: isLoading } = useMutation({
+    mutationFn: (data) => RegisterEmployeeApi(data),
     onSuccess: () => {
       toast.success("Registered User Successfully");
       navigate("/");
@@ -14,5 +14,5 @@ export function useRegisterUser() {
     onError: () => toast.error("Error in registering user"),
   });
 
-  return { registerUser, isLoading };
+  return { registerEmployee, isLoading };
 }

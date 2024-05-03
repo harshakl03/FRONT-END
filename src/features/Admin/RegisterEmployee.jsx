@@ -9,7 +9,7 @@ import Form from "../../ui/Form";
 import { Header } from "../../ui/Stylers";
 import Back from "../../ui/Back";
 import { useNavigate } from "react-router-dom";
-import { useRegisterUser } from "./useAdmin";
+import { useRegisterEmployee } from "./useAdmin";
 
 const formSchema = {
   vtu_id: {
@@ -64,16 +64,16 @@ const formSchema = {
 
 const message = "The above field is required";
 
-export default function RegisterUser() {
+export default function RegisterEmployee() {
   const { handleSubmit, register, formState, reset } = useForm({
     defaultValues: {},
   });
   const { errors } = formState;
   const navigate = useNavigate();
-  const { registerUser, isLoading } = useRegisterUser();
+  const { registerEmployee, isLoading } = useRegisterEmployee();
 
   function onSubmit(data) {
-    registerUser(data, {
+    registerEmployee(data, {
       onSettled: () => reset(),
     });
   }

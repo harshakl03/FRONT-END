@@ -19,7 +19,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ChangePasswordForm from "./features/Profile/ChangePasswordForm";
 import SettingsLayout from "./ui/SettingsLayout";
 import ForgotPasswordForm from "./features/Profile/ForgotPasswordForm";
-import RegisterUser from "./features/Admin/RegisterUser";
+import RegisterEmployee from "./features/Admin/RegisterEmployee";
 import AssignRole from "./features/Admin/AssignRole";
 
 export default function App() {
@@ -47,7 +47,7 @@ export default function App() {
             }
           >
             <Route path="admin" element={<AdminAccess />}>
-              <Route path="register-user" element={<RegisterUser />} />
+              <Route path="register-user" element={<RegisterEmployee />} />
               <Route path="assign-role" element={<AssignRole />} />
             </Route>
             <Route index element={<Navigate to="part-b" />} />

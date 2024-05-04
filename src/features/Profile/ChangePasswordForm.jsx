@@ -2,11 +2,12 @@ import { useNavigate } from "react-router-dom";
 import Back from "../../ui/Back";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
-import { Header } from "../../ui/Stylers";
+import { Changeheader, Header } from "../../ui/Stylers";
 import CustomButton, { ButtonRow, Button } from "../../ui/Button";
 import { Input } from "../../ui/Input";
 import Form from "../../ui/Form";
 import { useChangePassword } from "./editPassword";
+
 
 const message = "The above field is required";
 const minLength = {

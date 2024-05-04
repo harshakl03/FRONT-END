@@ -5,6 +5,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  margin-left: 30px;
   font-size: 24px;
   text-decoration: underline;
 `;
@@ -16,3 +17,10 @@ export const Footer = styled.footer`
   margin: 20px;
   text-align: end;
 `;
+
+export const Changeheader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`

@@ -12,7 +12,6 @@ import useEditEmployee from "./useEditEmployee";
 import Back from "../../ui/Back";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../ui/LoadingScreen";
-import { ClipLoader } from "react-spinners";
 
 const formSchema = {
   vtu_id: {
@@ -97,7 +96,7 @@ export default function ProfileForm() {
     return;
   }
 
-  if (isLoading || isEditing) return <LoadingScreen></LoadingScreen>;
+  if (isLoading || isEditing) return <LoadingScreen />;
   return (
     <div>
       <Back onClick={() => navigate("/")} />

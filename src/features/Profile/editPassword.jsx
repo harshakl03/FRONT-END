@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useChangePassword() {
   const navigate = useNavigate();
-  const { mutate: changePassword, isFetching: isLoading } = useMutation({
+  const { mutate: changePassword, isPending: isLoading } = useMutation({
     mutationFn: (data) => changePasswordApi(data),
     onSuccess: (data) => {
       toast.success(data.message);
@@ -19,7 +19,7 @@ export function useChangePassword() {
 
 export function useForgotPassword() {
   const navigate = useNavigate();
-  const { mutate: forgotPassword, isFetching: isLoading } = useMutation({
+  const { mutate: forgotPassword, isPending: isLoading } = useMutation({
     mutationFn: (data) => forgotPasswordApi(data),
     onSuccess: (data) => {
       toast.success(data.message);

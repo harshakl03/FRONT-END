@@ -7,11 +7,11 @@ export function useRegisterEmployee() {
   const navigate = useNavigate();
   const { mutate: registerEmployee, isPending: isLoading } = useMutation({
     mutationFn: (data) => RegisterEmployeeApi(data),
-    onSuccess: () => {
-      toast.success("Registered User Successfully");
+    onSuccess: (data) => {
+      toast.success(data.message);
       navigate("/");
     },
-    onError: () => toast.error("Error in registering user"),
+    onError: (err) => toast.error(err.message),
   });
 
   return { registerEmployee, isLoading };

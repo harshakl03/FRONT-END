@@ -2,6 +2,7 @@ import Button, { ButtonRow } from "../ui/Button";
 import styled from "styled-components";
 import useLoginData from "../features/Login-and-Register/useLoginData";
 import ProfileIcon from "../ui/ProfileIcon";
+import LoadingScreen from "../ui/LoadingScreen";
 import { Footer } from "../ui/Stylers";
 // import { useEffect } from "react";
 // import { logOut } from "../utils/apiLoginRegister";
@@ -24,12 +25,11 @@ const Image = styled.img`
 
 export default function Home() {
   const { data, isLoading } = useLoginData();
-
   // useEffect(() => {
   //   if (data?.payload?.vtu_id !== localStorage.getItem("vtu-id")) logOut();
   // }, [data?.payload?.vtu_id]);
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isLoading) return <LoadingScreen />;
   if (data?.payload) localStorage.setItem("vtu-id", data.payload.vtu_id);
 
   if (data.error === true || typeof data.error === "undefined")
@@ -61,7 +61,7 @@ export default function Home() {
         ) : (
           data.payload.level >= 4 && (
             <ButtonRow>
-              <Button to="/admin/register-user">Register User</Button>
+              <Button to="/admin/register-user">Register Employee</Button>
               <Button to="/admin/assign-role">Assign Role</Button>
             </ButtonRow>
           )

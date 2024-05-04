@@ -9,6 +9,7 @@ import useLoginData from "./useLoginData";
 import useLogin from "./useLogin";
 import { useEffect } from "react";
 import Back from "../../ui/Back";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 const StyledLoginForm = styled.form`
   display: flex;
@@ -85,7 +86,7 @@ export default function LoginForm() {
     [loginData?.error, navigate]
   );
 
-  if (isLoadingLogin) return null;
+  if (isLoadingLogin || isLoading) return <LoadingScreen />;
 
   function onSubmit(data, event) {
     event.preventDefault();

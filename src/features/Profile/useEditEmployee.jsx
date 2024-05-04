@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function useEditEmployee() {
   const query = useQueryClient();
   const navigate = useNavigate();
-  const { mutate: editEmployee, isFetching: isLoading } = useMutation({
+  const { mutate: editEmployee, isPending: isLoading } = useMutation({
     mutationFn: (data) => updateEmployeeDetails(data),
     onSuccess: (data) => {
       query.setQueryData(["employee-data"], data);

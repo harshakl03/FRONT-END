@@ -7,6 +7,7 @@ import { Input } from "../../ui/Input";
 import { Header } from "../../ui/Stylers";
 import CustomButton, { ButtonRow, Button } from "../../ui/Button";
 import { useForgotPassword } from "./editPassword";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 const message = "The above field is required";
 const minLength = {
@@ -22,7 +23,7 @@ export default function ForgotPasswordForm() {
   });
   const { errors } = formState;
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isLoading) return <LoadingScreen />;
 
   function onSubmit(data) {
     forgotPassword(data, {

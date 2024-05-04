@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
 import styled from "styled-components";
 import useLogOut from "../features/Login-and-Register/useLogOut";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "./LoadingScreen";
 
 const StyledList = styled.ul`
   position: fixed;
@@ -69,12 +69,14 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
     [setIsOpen]
   );
 
+  if (isLoading) return <LoadingScreen />;
+
   function handleLogOut() {
     logout();
   }
 
   if (isOpen)
-    return createPortal(
+    return (
       <StyledList position={position} ref={ref}>
         <List
           onClick={() => {
@@ -101,7 +103,6 @@ export default function ProfileModal({ isOpen, position, setIsOpen }) {
         >
           {isLoading ? "Loading" : "Logout"}
         </List>
-      </StyledList>,
-      document.body
+      </StyledList>
     );
 }

@@ -8,6 +8,7 @@ import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
 import { Header } from "../../ui/Stylers";
 import Back from "../../ui/Back";
+import LoadingScreen from "../../ui/LoadingScreen";
 import { useNavigate } from "react-router-dom";
 import { useRegisterEmployee } from "./useAdmin";
 
@@ -60,6 +61,12 @@ const formSchema = {
     field: "input",
     type: "text",
   },
+  pan_number: {
+    label: "Enter Pan Number:",
+    required: true,
+    field: "input",
+    type: "text",
+  },
 };
 
 const message = "The above field is required";
@@ -72,6 +79,8 @@ export default function RegisterEmployee() {
   const navigate = useNavigate();
   const { registerEmployee, isLoading } = useRegisterEmployee();
 
+  if (isLoading) return <LoadingScreen />;
+
   function onSubmit(data) {
     registerEmployee(data, {
       onSettled: () => reset(),
@@ -81,7 +90,7 @@ export default function RegisterEmployee() {
   return (
     <div>
       <Back onClick={() => navigate("/")} />
-      <Header>REGISTER USER</Header>
+      <Header>REGISTER EMPLOYEE</Header>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {Object.keys(formSchema).map((field) => (
           <FormRow

@@ -21,6 +21,7 @@ import SettingsLayout from "./ui/SettingsLayout";
 import ForgotPasswordForm from "./features/Profile/ForgotPasswordForm";
 import RegisterEmployee from "./features/Admin/RegisterEmployee";
 import AssignRole from "./features/Admin/AssignRole";
+import RegisterUser from "./features/Admin/RegisterUser";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -47,7 +48,8 @@ export default function App() {
             }
           >
             <Route path="admin" element={<AdminAccess />}>
-              <Route path="register-user" element={<RegisterEmployee />} />
+              <Route path="register-employee" element={<RegisterEmployee />} />
+              <Route path="register-user" element={<RegisterUser />} />
               <Route path="assign-role" element={<AssignRole />} />
             </Route>
             <Route index element={<Navigate to="part-b" />} />

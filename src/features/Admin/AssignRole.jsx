@@ -57,11 +57,12 @@ export default function AssignRole() {
               required: message,
             })}
           >
-            {designations?.payload?.map((design, index) => (
-              <Option value={design.title} key={index}>
-                {design.title}
-              </Option>
-            ))}
+            {designations &&
+              designations.payload.map((design, index) => (
+                <Option value={design.title} key={index}>
+                  {design.title}
+                </Option>
+              ))}
           </Select>
         </FormRow>
         <ButtonRow>

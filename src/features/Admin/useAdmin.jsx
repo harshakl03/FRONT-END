@@ -1,5 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { RegisterEmployeeApi, RegisterUserApi } from "../../utils/apiAdmin";
+import {
+  AssignRoleApi,
+  RegisterEmployeeApi,
+  RegisterUserApi,
+} from "../../utils/apiAdmin";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -29,4 +33,18 @@ export function useRegisterUser() {
   });
 
   return { registerUser, isLoading };
+}
+
+export function useAssignRole() {
+  const navigate = useNavigate();
+  const { mutate: assignRole, isPending: isLoading } = useMutation({
+    mutationFn: (data) => AssignRoleApi(data),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      navigate("/");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  return { assignRole, isLoading };
 }

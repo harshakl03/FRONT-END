@@ -63,10 +63,10 @@ export default function Home() {
             <>
               <ButtonRow>
                 <Button to="/admin/register-employee">Register Employee</Button>
-                <Button to="/admin/register-user">Register User</Button>
+                <Button to="/admin/assign-role">Assign Role</Button>
               </ButtonRow>
               <ButtonRow>
-                <Button to="/admin/assign-role">Assign Role</Button>
+                <Button to="/admin/register-user">Register User</Button>
               </ButtonRow>
             </>
           )

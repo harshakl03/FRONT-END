@@ -5,7 +5,11 @@ import { Input } from "../../ui/Input";
 import CustomButton, { ButtonRow } from "../../ui/Button";
 import Back from "../../ui/Back";
 import { Header } from "../../ui/Stylers";
+import LoadingScreen from "../../ui/LoadingScreen";
 import { useNavigate } from "react-router-dom";
+import useDesigntaion from "./useDesignation";
+import { useAssignRole } from "./useAdmin";
+import { Option, Select } from "../../ui/Select";
 
 const message = "The above field is required";
 
@@ -15,11 +19,16 @@ export default function AssignRole() {
   });
   const { errors } = formState;
   const navigate = useNavigate();
+  const { data: designations, isLoading } = useDesigntaion();
+  const { assignRole, isLoading: isAssigning } = useAssignRole();
 
   function onSubmit(data) {
-    console.log(data);
-    reset();
+    assignRole(data, {
+      onSettled: () => reset(),
+    });
   }
+
+  if (isLoading || isAssigning) return <LoadingScreen />;
 
   return (
     <div>
@@ -42,16 +51,18 @@ export default function AssignRole() {
           label="Enter designation:*"
           error={errors?.designation?.message}
         >
-          <select
+          <Select
             id="designation"
             {...register("designation", {
               required: message,
             })}
           >
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </select>
+            {designations?.payload?.map((design, index) => (
+              <Option value={design.title} key={index}>
+                {design.title}
+              </Option>
+            ))}
+          </Select>
         </FormRow>
         <ButtonRow>
           <CustomButton>Assign</CustomButton>

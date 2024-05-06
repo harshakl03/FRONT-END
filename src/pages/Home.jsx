@@ -40,7 +40,6 @@ export default function Home() {
           <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
           <ButtonRow>
             <Button to="/login">Log In</Button>
-            <Button to="/register">Register</Button>
           </ButtonRow>
         </StyledHome>
         <Footer>@Copyright2024</Footer>

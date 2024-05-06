@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Select = styled.select`
-    color: black;
+  color: black;
   font-size: 1em;
   border: none;
   border-radius: 10px;
@@ -14,10 +14,10 @@ export const Select = styled.select`
 `;
 
 export const Option = styled.option`
-    font-size: 18px;
-    padding: 1em; /* Padding for inside content */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    select:focus > &:hover {
-        background-color: #ffffff; /* Background color on hover */
-    }
+  font-size: 18px;
+  padding: 1em; /* Padding for inside content */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  select:focus > &:hover {
+    background-color: #ffffff; /* Background color on hover */
+  }
 `;

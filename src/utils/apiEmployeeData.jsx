@@ -21,11 +21,10 @@ export async function updateEmployeeDetails(newData) {
   const newObject = new URLSearchParams();
   Object.keys(data).map((field) => {
     if (data[field] !== newData[field]) {
-      newObject.append(field,newData[field])
+      newObject.append(field, newData[field]);
     }
     return 0;
   });
-
 
   const res = await fetch(`http://localhost:3000/employees/${vtuId}`, {
     method: "PATCH",

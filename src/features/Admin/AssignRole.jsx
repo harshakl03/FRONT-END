@@ -28,7 +28,8 @@ export default function AssignRole() {
     });
   }
 
-  if (isLoading || isAssigning) return <LoadingScreen />;
+  if (isLoading || isAssigning || designations.payload.userLevel < 1)
+    return <LoadingScreen />;
 
   return (
     <div>
@@ -58,7 +59,7 @@ export default function AssignRole() {
             })}
           >
             {designations &&
-              designations.payload.map((design, index) => (
+              designations?.payload?.map((design, index) => (
                 <Option value={design.title} key={index}>
                   {design.title}
                 </Option>

@@ -6,7 +6,6 @@ import PartBCat2 from "./pages/PartBCat2";
 import PartBCat3 from "./pages/PartBCat3";
 import PartC from "./pages/PartC";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Declaration from "./pages/Declaration";
 import PageNotFound from "./ui/PageNotFound";
 import ProtectedRoutes from "./ui/ProtectedRoutes";
@@ -75,7 +74,6 @@ export default function App() {
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="register" element={<Register />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

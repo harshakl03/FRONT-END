@@ -23,4 +23,6 @@ export const Changeheader = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin-top: 50px;
+  margin-left: 50px;
 `

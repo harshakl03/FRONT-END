@@ -14,7 +14,7 @@ const coolShadow = keyframes`
 
 export const Button = styled.button`
   color: white;
-  width: 150px;
+  width: auto;
   margin-top: 10px;
   height: 5rem;
   font-size: 1em;
@@ -27,6 +27,7 @@ export const Button = styled.button`
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
   overflow: hidden;
+  text-align: center;
 
   &:hover {
     //animation: ${coolShadow} 1s ease;
@@ -45,7 +46,7 @@ const ButtonLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: auto;
   height: 5rem;
   margin-top: 10px;
   font-size: 1em;

@@ -73,16 +73,12 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  color: var(--color-grey-700);
-  background: linear-gradient(to top left,  #969696, #ffffff);
-  
-
-  transition: color 0.3s, background-color 0.3s;
-  min-height: 100vh;
-  line-height: 1.5;
-  font-size: 1.6rem;
-
-  
+    color: var(--color-grey-700);
+    background: linear-gradient(to top left, #818181, #ffffff);
+    transition: color 0.3s, background 0.3s;
+    min-height: 100vh;
+    line-height: 1.7;
+    font-size: 1.6rem;
 }
 
 input,

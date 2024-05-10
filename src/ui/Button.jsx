@@ -75,7 +75,8 @@ const ButtonLink = styled(Link)`
 
 export const ButtonRow = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 15px;
+  margin: 2px 2px 2px;
   justify-content: space-between;
 `;
 

@@ -15,7 +15,9 @@ export const Footer = styled.footer`
   align-items: center;
   opacity: 40%;
   margin: 20px;
-  text-align: end;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 `;
 
 export const Changeheader = styled.div`

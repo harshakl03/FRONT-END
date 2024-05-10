@@ -12,15 +12,17 @@ const StyledHome = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 15px;
   /* background-image: url("https://singheducation.co.in/images/CollegeImages/618942DSC_0837-582x359.jpg");
   background-size: 100% 100%; */
 `;
 
 const Image = styled.img`
   background-color: white;
-  padding: 10px;
+  padding: 15px;
   border: solid black;
   aspect-ratio: 1/1;
+  margin-top: 10px;
 `;
 
 export default function Home() {
@@ -52,6 +54,7 @@ export default function Home() {
         <h1>Home</h1>
         <Image src="/Bangalore_Institute_of_Technology_logo.png" alt="LOGO" />
         <ProfileIcon />
+        <br></br>
         <h1>Welcome</h1>
         {data.payload.level < 4 ? (
           <ButtonRow>

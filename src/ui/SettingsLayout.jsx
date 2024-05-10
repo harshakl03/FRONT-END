@@ -7,34 +7,28 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
-`;
-const Container2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  height: 100vh;
 `
-
 const Card = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 25px;
   max-width: 400px;
   width: 100%;
 `;
 
 const Title = styled.h2`
-  color: #333;
+  color: #252525;
   font-size: 24px;
   margin-bottom: 20px;
 `;
 
 const StyledLink = styled(Link)`
-  color: #007bff;
+  color: #0066ff;
   text-decoration: none;
   font-size: 18px;
   margin-bottom: 10px;
+  text-decoration: underline;
 `;
 
 export default function SettingsLayout() {

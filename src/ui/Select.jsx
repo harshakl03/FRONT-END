@@ -11,13 +11,19 @@ export const Select = styled.select`
   font-family: "Poppins";
   background-color: #f4f4f4; /* Light background color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #e0e0e0; /* Lighter background color on hover */
+  }
+  
+  &:focus {
+    background-color: #ffffff; /* White background color on focus */
+  }
 `;
 
 export const Option = styled.option`
-  font-size: 18px;
-  padding: 1em; /* Padding for inside content */
-  cursor: pointer; /* Change cursor to pointer on hover */
-  select:focus > &:hover {
-    background-color: #ffffff; /* Background color on hover */
-  }
+  font-size: 16.5px;
+  padding: 0.5em; /* Padding for inside content */
+  cursor: pointer;
 `;
+

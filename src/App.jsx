@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import PartBCat1 from "./pages/PartBCat1";
 import PartBCat2 from "./pages/PartBCat2";
 import PartBCat3 from "./pages/PartBCat3";
 import PartC from "./pages/PartC";
@@ -21,6 +20,8 @@ import ForgotPasswordForm from "./features/Profile/ForgotPasswordForm";
 import RegisterEmployee from "./features/Admin/RegisterEmployee";
 import AssignRole from "./features/Admin/AssignRole";
 import RegisterUser from "./features/Admin/RegisterUser";
+import SetYear from "./features/Academic/SetYear";
+import TLEAForm from "./features/Academic/TLEAForm";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -63,11 +64,11 @@ export default function App() {
                 />
               </Route>
             </Route>
-            <Route path="part-b">
-              <Route index element={<Navigate to="cat1" />} />
-              <Route path="cat1" element={<PartBCat1 />} />
-              <Route path="cat2" element={<PartBCat2 />} />
-              <Route path="cat3" element={<PartBCat3 />} />
+            <Route path="academic">
+              <Route path="set-year" element={<SetYear />} />
+              <Route path="tlea" element={<TLEAForm />} />
+              <Route path="cepda" element={<PartBCat2 />} />
+              <Route path="rpac" element={<PartBCat3 />} />
             </Route>
             <Route path="part-c" element={<PartC />} />
             <Route path="declaration" element={<Declaration />} />

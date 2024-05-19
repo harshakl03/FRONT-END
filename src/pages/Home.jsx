@@ -58,7 +58,7 @@ export default function Home() {
         <h1>Welcome</h1>
         {data.payload.level < 4 ? (
           <ButtonRow>
-            <Button to="/part-b/cat1">Apply Form</Button>
+            <Button to="/academic/set-year">Apply Form</Button>
           </ButtonRow>
         ) : (
           data.payload.level >= 4 && (

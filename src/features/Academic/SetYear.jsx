@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { useDateSet } from "../Academic/useAcademic";
 import LoadingScreen from "../../ui/LoadingScreen";
 
+
 export default function SetYear() {
   const {
     handleSubmit,
@@ -41,6 +42,24 @@ export default function SetYear() {
                 value={field.value}
                 onChange={field.onChange}
                 format="DD-MM-YYYY"
+                sx={{
+                  color: "black",
+                  border: "none",
+                  borderRadius: "10px",
+                  margin: "20px",
+                  //padding: "5px",
+                  //border: "1px solid black",
+                  
+                  backgroundColor: "#f4f4f4", 
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+                }}
+                InputProps={{
+                  sx: {
+                    padding: "1em",
+                    fontSize: "100px",
+                    fontFamily: "Poppins",
+                  }
+                }}
               />
             )}
           />
@@ -56,7 +75,27 @@ export default function SetYear() {
                 value={field.value}
                 onChange={field.onChange}
                 format="DD-MM-YYYY"
+                sx={{
+                  color: "black",
+                  
+                  border: "none",
+                  borderRadius: "10px",
+                  margin: "20px",
+                 //padding: "5px",
+                  //border: "1px solid black",
+                  fontFamily: "Poppins",
+                  backgroundColor: "#f4f4f4", 
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+                }}
+                InputProps={{
+                  sx: {
+                    padding: "1em",
+                    fontSize: "100px",
+                    fontFamily: "Poppins",
+                  }
+                }}
               />
+
             )}
           />
         </FormRow>

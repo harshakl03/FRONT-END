@@ -5,7 +5,7 @@ export const Select = styled.select`
   font-size: 1em;
   border: none;
   border-radius: 10px;
-  margin: 1em;
+  margin: 20px;
   padding: 1em;
   border: 1px solid black;
   font-family: "Poppins";
@@ -22,7 +22,7 @@ export const Select = styled.select`
 `;
 
 export const Option = styled.option`
-  font-size: 16.5px;
+  font-size: 15px;
   padding: 0.5em; /* Padding for inside content */
   cursor: pointer;
 `;

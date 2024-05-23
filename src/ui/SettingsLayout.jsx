@@ -7,7 +7,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
-`
+`;
 const Card = styled.div`
   background-color: #fff;
   border-radius: 8px;

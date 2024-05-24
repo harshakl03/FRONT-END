@@ -146,7 +146,7 @@ const FlexRow = styled.div`
   width: auto;
 `
 export default function TLEAForm() {
-  const { data, isLoading } = useCourseData();
+  const { data:courseData, isLoading } = useCourseData();
   const { handleSubmit, register } = useForm({ defaultValues: {} });
   const [count, setCount] = useState(1);
   const [loadArray, setLoadArray] = useState(["0"]);
@@ -160,11 +160,14 @@ export default function TLEAForm() {
         return "";
       })
       .filter((item) => item !== "");
-    console.log(arrayData);
+
+    const apiData = arrayData.map(item=> courseData?.payload.find(rec=> rec.name === item))
+    console.log(apiData);
   }
 
   function handleDelete(e, id) {
     e.preventDefault();
+    if(loadArray.length === 1) return;
     setLoadArray((prev) => prev.filter((val) => val !== id));
   }
 
@@ -188,7 +191,7 @@ export default function TLEAForm() {
               name="id"
               {...register(id, { required: "The above field is required" })}
             >
-              {data?.payload.map((item) => (
+              {courseData?.payload.map((item) => (
                 <Option key={item.id} value={item.name}>
                   {item.name}
                 </Option>

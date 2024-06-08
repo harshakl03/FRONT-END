@@ -9,7 +9,7 @@ export function useDateSet() {
     mutationFn: (data) => apiDateSet(data),
     onSuccess: (data) => {
       toast.success(data.message);
-      navigate("/academic/tlea");
+      navigate("/academic/tlea/isth");
     },
     onError: (err) => toast.error(err.message),
   });

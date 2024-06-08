@@ -21,7 +21,10 @@ import RegisterEmployee from "./features/Admin/RegisterEmployee";
 import AssignRole from "./features/Admin/AssignRole";
 import RegisterUser from "./features/Admin/RegisterUser";
 import SetYear from "./features/Academic/SetYear";
-import TLEAForm from "./features/Academic/TLEAForm";
+import ISTHForm from "./features/Academic/TLEA/ISTHForm";
+import ARSForm from "./features/Academic/TLEA/ARSForm";
+import ITREForm from "./features/Academic/TLEA/ITREForm";
+import EDForm from "./features/Academic/TLEA/EDForm";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -66,7 +69,12 @@ export default function App() {
             </Route>
             <Route path="academic">
               <Route path="set-year" element={<SetYear />} />
-              <Route path="tlea" element={<TLEAForm />} />
+              <Route path="tlea">
+                <Route path="isth" element={<ISTHForm />} />
+                <Route path="ars" element={<ARSForm />} />
+                <Route path="itre" element={<ITREForm />} />
+                <Route path="ed" element={<EDForm />} />
+              </Route>
               <Route path="cepda" element={<PartBCat2 />} />
               <Route path="rpac" element={<PartBCat3 />} />
             </Route>

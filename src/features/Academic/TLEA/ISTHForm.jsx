@@ -7,7 +7,7 @@ import { Header } from "../../../ui/Stylers";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
 import { Input } from "../../../ui/Input";
 import { useTLEA, useTLEAData } from "./useTLEA";
-import { CustomDelete, FlexRow, Form } from "../AcademicStyles";
+import { CustomDelete, FlexRow, Form, SelectDeleteContainer } from "../AcademicStyles";
 import { useEffect, useState } from "react";
 import TLEAButton from "./TLEAButton";
 
@@ -61,19 +61,24 @@ export default function ISTHForm() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((item, index) => (
           <FlexRow key={item.id}>
-            <Select
-              {...register(`courses.${index}.course_name`, message)}
-              disabled={submitted}
-            >
-              <Option value="" disabled selected hidden>
-                Course
-              </Option>
-              {courseData?.payload?.map((item) => (
-                <Option key={item.id} value={item.name}>
-                  {item.name}
+            <SelectDeleteContainer>
+              <Select
+                {...register(`courses.${index}.course_name`, message)}
+                disabled={submitted}
+              >
+                <Option value="" disabled selected hidden>
+                  Course
                 </Option>
-              ))}
-            </Select>
+                {courseData?.payload?.map((item) => (
+                  <Option key={item.id} value={item.name}>
+                    {item.name}
+                  </Option>
+                ))}
+              </Select>
+              <CustomDelete type="button" onClick={() => remove(index)}>
+                <HiArchiveBoxXMark />
+              </CustomDelete>
+            </SelectDeleteContainer>
             <Input
               type="number"
               {...register(`courses.${index}.semester`, message)}
@@ -92,9 +97,6 @@ export default function ISTHForm() {
               placeholder="Percentage of Classes Engaged"
               disabled={submitted}
             />
-            <CustomDelete type="button" onClick={() => remove(index)}>
-              <HiArchiveBoxXMark />
-            </CustomDelete>
           </FlexRow>
         ))}
         <TLEAButton

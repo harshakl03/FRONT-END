@@ -6,6 +6,7 @@ export const Select = styled.select`
   border: none;
   border-radius: 10px;
   margin: 20px;
+  width: 250px;
   padding: 1em;
   border: 1px solid black;
   font-family: "Poppins";

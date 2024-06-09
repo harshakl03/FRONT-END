@@ -40,8 +40,8 @@ export const CustomDelete = styled.button`
   align-items: center;
   width: 5rem;
   height: 5rem;
-  margin-top: 10px;
-  margin-left: 430px;
+  margin-top: 100px;
+  margin-left: 450px;
   font-size: 1em;
   font-family: "Poppins", sans-serif;
   padding: 0.25em;
@@ -55,6 +55,8 @@ export const CustomDelete = styled.button`
   overflow: hidden;
   flex-direction: column;
   position: absolute;
+  bottom: 5px;
+  right: 0px;
   &:hover {
     transform: scale(1.05);
   }
@@ -101,7 +103,8 @@ export const CustomAdd = styled.button`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  max-width: 80%;
+  
   margin: 20px auto;
   padding: 35px;
   border-radius: 20px;
@@ -132,7 +135,46 @@ export const Form = styled.form`
 `;
 export const FlexRow = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row ;
+  flex-wrap: wrap;
   align-items: center;
-  width: auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  gap: 5px;
+  transition: flex-direction 0.3s ease-in-out;
+
+  @media (max-width:768px) {
+    flex-direction: column;
+    width:100%;
+    align-items: flex-start;
+  }
+`;
+
+/*export const FlexrowCourse = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: flex-direction 0.3s ease-in-out;
+  position: relative;
+
+  @media (max-width: 1980px) {
+    flex-direction: row;
+    width: 100%;
+  }
+`*/
+
+export const SelectDeleteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  flex: 1; 
+  position: relative;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;

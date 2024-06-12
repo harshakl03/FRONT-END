@@ -1,14 +1,14 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { Header } from "../../../ui/Stylers";
 import { Input } from "../../../ui/Input";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
-import { CustomDelete, FlexRow, Form } from "../AcademicStyles";
+import { FlexRow, Form } from "../AcademicStyles";
 import { useTLEA, useTLEAData } from "./useTLEA";
 import LoadingScreen from "../../../ui/LoadingScreen";
 import { useEffect, useState } from "react";
 import useCourseData from "../useCourseData";
 import { Option, Select } from "../../../ui/Select";
 import TLEAButton from "./TLEAButton";
+import RowButtons from "./RowButtons";
 
 const message = { required: "The above field is required" };
 const defaultValue = {
@@ -36,18 +36,21 @@ export default function ARSForm() {
     control,
     name: "materials",
   });
-  const [submitted, setSubmitted] = useState(() => Boolean(!arsData?.error));
+  const [edit, setEdit] = useState(-1);
+  const [numOfElementsFromSavedData, set] = useState(0);
 
   useEffect(() => {
     const data = [];
     if (!isLoadingData && arsData && !arsData.error) {
       arsData.payload.map((item) => data.push(item));
       setValue("materials", data);
+      set(Object.keys(arsData.payload).length);
     }
-  }, [isLoadingData, setValue, arsData]);
+  }, [isLoadingData, setValue, arsData, set]);
 
   function onSubmit(data) {
-    insertMul(data.materials, { onSettled: () => reset() });
+    const processedData = data.materials.slice(numOfElementsFromSavedData);
+    insertMul(processedData, { onSettled: () => reset() });
   }
 
   if (isLoading || isLoadingCourseData || isLoadingData)
@@ -61,7 +64,7 @@ export default function ARSForm() {
           <FlexRow key={item.id}>
             <Select
               {...register(`materials.${index}.course_name`, message)}
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             >
               <Option value="" disabled selected hidden>
                 Course Name
@@ -76,13 +79,13 @@ export default function ARSForm() {
               type="text"
               {...register(`materials.${index}.consulted_from`, message)}
               placeholder="Enter Consultancy"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="text"
               {...register(`materials.${index}.prescribed_resources`, message)}
               placeholder="Enter Prescribed Resources"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="text"
@@ -91,16 +94,19 @@ export default function ARSForm() {
                 message
               )}
               placeholder="Enter Additional Resources"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
-            <CustomDelete type="button" onClick={() => remove(index)}>
-              <HiArchiveBoxXMark />
-            </CustomDelete>
+            <RowButtons
+              showEdit={edit === index}
+              index={index}
+              setEdit={setEdit}
+              remove={remove}
+              belongsToSaveData={index < numOfElementsFromSavedData}
+            />
           </FlexRow>
         ))}
         <TLEAButton
-          submitted={submitted}
-          setSubmitted={setSubmitted}
+          showSubmit={fields.length > numOfElementsFromSavedData}
           navlink="/academic/tlea/itre"
           append={() => append(defaultValue.materials[0])}
         />

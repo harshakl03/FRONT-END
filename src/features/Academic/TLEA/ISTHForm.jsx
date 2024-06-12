@@ -4,12 +4,12 @@ import { Option, Select } from "../../../ui/Select";
 import LoadingScreen from "../../../ui/LoadingScreen";
 import useCourseData from "../useCourseData";
 import { Header } from "../../../ui/Stylers";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
 import { Input } from "../../../ui/Input";
 import { useTLEA, useTLEAData } from "./useTLEA";
-import { CustomDelete, FlexRow, Form, SelectDeleteContainer } from "../AcademicStyles";
+import { FlexRow, Form } from "../AcademicStyles";
 import { useEffect, useState } from "react";
 import TLEAButton from "./TLEAButton";
+import RowButtons from "./RowButtons";
 
 const message = { required: "The above field is required" };
 const defaultValue = {
@@ -33,25 +33,33 @@ export default function ISTHForm() {
     tag,
     "/academic/tlea/ars"
   );
-  const [submitted, setSubmitted] = useState(() => Boolean(!isthData?.error));
+  const [edit, setEdit] = useState(-1);
+  const [numOfElementsFromSavedData, set] = useState(0);
 
-  useEffect(() => {
-    const data = [];
-    if (!isISTHLoading && isthData && !isthData.error) {
-      isthData.payload.map((item) => data.push(item));
-      setValue("courses", data);
-    }
-  }, [isISTHLoading, setValue, isthData]);
+  useEffect(
+    () => {
+      const data = [];
+      if (!isISTHLoading && isthData && !isthData.error) {
+        isthData.payload.map((item) => data.push(item));
+        setValue("courses", data);
+        set(Object.keys(isthData.payload).length);
+      }
+    },
+    [isISTHLoading, setValue, isthData],
+    set
+  );
 
   if (isLoading || isFetching || isISTHLoading) return <LoadingScreen />;
 
   function onSubmit(data) {
-    const processedData = data.courses.map((course) => ({
-      ...course,
-      semester: Number(course.semester),
-      tce: Number(course.tce),
-      pce: Number(course.pce),
-    }));
+    const processedData = data.courses
+      .map((course) => ({
+        ...course,
+        semester: Number(course.semester),
+        tce: Number(course.tce),
+        pce: Number(course.pce),
+      }))
+      .slice(numOfElementsFromSavedData);
     insertMul(processedData, { onSettled: () => reset() });
   }
 
@@ -61,47 +69,48 @@ export default function ISTHForm() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((item, index) => (
           <FlexRow key={item.id}>
-            <SelectDeleteContainer>
-              <Select
-                {...register(`courses.${index}.course_name`, message)}
-                disabled={submitted}
-              >
-                <Option value="" disabled selected hidden>
-                  Course
+            <Select
+              {...register(`courses.${index}.course_name`, message)}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
+            >
+              <Option value="" disabled selected hidden>
+                Course
+              </Option>
+              {courseData?.payload?.map((item) => (
+                <Option key={item.id} value={item.name}>
+                  {item.name}
                 </Option>
-                {courseData?.payload?.map((item) => (
-                  <Option key={item.id} value={item.name}>
-                    {item.name}
-                  </Option>
-                ))}
-              </Select>
-              <CustomDelete type="button" onClick={() => remove(index)}>
-                <HiArchiveBoxXMark />
-              </CustomDelete>
-            </SelectDeleteContainer>
+              ))}
+            </Select>
             <Input
               type="number"
               {...register(`courses.${index}.semester`, message)}
               placeholder="SEMESTER"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="number"
               {...register(`courses.${index}.tce`, message)}
               placeholder="Total Class Engaged"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="number"
               {...register(`courses.${index}.pce`, message)}
               placeholder="Percentage of Classes Engaged"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
+            />
+            <RowButtons
+              showEdit={edit === index}
+              index={index}
+              setEdit={setEdit}
+              remove={remove}
+              belongsToSaveData={index < numOfElementsFromSavedData}
             />
           </FlexRow>
         ))}
         <TLEAButton
-          submitted={submitted}
-          setSubmitted={setSubmitted}
+          showSubmit={fields.length > numOfElementsFromSavedData}
           navlink="/academic/tlea/ars"
           append={() => append(defaultValue.courses[0])}
         />

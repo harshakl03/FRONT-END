@@ -1,12 +1,12 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { Header } from "../../../ui/Stylers";
 import { Input } from "../../../ui/Input";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
-import { CustomDelete, FlexRow, Form } from "../AcademicStyles";
+import { FlexRow, Form } from "../AcademicStyles";
 import { useTLEA, useTLEAData } from "./useTLEA";
 import LoadingScreen from "../../../ui/LoadingScreen";
 import { useEffect, useState } from "react";
 import TLEAButton from "./TLEAButton";
+import RowButtons from "./RowButtons";
 
 const message = { required: "The above field is required" };
 const defaultValue = {
@@ -31,22 +31,26 @@ export default function EDForm() {
     control,
     name: "exams",
   });
-  const [submitted, setSubmitted] = useState(() => Boolean(!edData?.error));
+  const [edit, setEdit] = useState(-1);
+  const [numOfElementsFromSavedData, set] = useState(0);
 
   useEffect(() => {
     const data = [];
     if (!isLoadingData && edData && !edData.error) {
       edData.payload.map((item) => data.push(item));
       setValue("exams", data);
+      set(Object.keys(edData.payload).length);
     }
-  }, [isLoadingData, setValue, edData]);
+  }, [isLoadingData, setValue, edData, set]);
 
   function onSubmit(data) {
-    const processedData = data.exams.map((item) => ({
-      ...item,
-      api_score: Number(item.api_score),
-      extent_carried_out: Number(item.extent_carried_out),
-    }));
+    const processedData = data.exams
+      .map((item) => ({
+        ...item,
+        api_score: Number(item.api_score),
+        extent_carried_out: Number(item.extent_carried_out),
+      }))
+      .slice(numOfElementsFromSavedData);
     insertMul(processedData, { onSettled: () => reset() });
   }
 
@@ -62,34 +66,37 @@ export default function EDForm() {
               type="text"
               {...register(`exams.${index}.exam_type`, message)}
               placeholder="Enter Type of Examination Duty"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="text"
               {...register(`exams.${index}.duty_assigned`, message)}
               placeholder="Enter Duties Assigned"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="number"
               {...register(`exams.${index}.extent_carried_out`, message)}
               placeholder="Enter Extent of Carry"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="number"
               {...register(`exams.${index}.api_score`, message)}
               placeholder="Enter API Score"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
-            <CustomDelete type="button" onClick={() => remove(index)}>
-              <HiArchiveBoxXMark />
-            </CustomDelete>
+            <RowButtons
+              showEdit={edit === index}
+              index={index}
+              setEdit={setEdit}
+              remove={remove}
+              belongsToSaveData={index < numOfElementsFromSavedData}
+            />
           </FlexRow>
         ))}
         <TLEAButton
-          submitted={submitted}
-          setSubmitted={setSubmitted}
+          showSubmit={fields.length > numOfElementsFromSavedData}
           navlink="/academic/cepda"
           append={() => append(defaultValue.exams[0])}
         />

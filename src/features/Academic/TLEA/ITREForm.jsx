@@ -1,12 +1,12 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { Header } from "../../../ui/Stylers";
 import { Input } from "../../../ui/Input";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
-import { CustomDelete, FlexRow, Form } from "../AcademicStyles";
+import { FlexRow, Form } from "../AcademicStyles";
 import { useTLEA, useTLEAData } from "./useTLEA";
 import LoadingScreen from "../../../ui/LoadingScreen";
 import { useEffect, useState } from "react";
 import TLEAButton from "./TLEAButton";
+import RowButtons from "./RowButtons";
 
 const message = { required: "The above field is required" };
 const defaultValue = {
@@ -29,21 +29,25 @@ export default function ITREForm() {
     control,
     name: "api",
   });
-  const [submitted, setSubmitted] = useState(() => Boolean(!itreData?.error));
+  const [edit, setEdit] = useState(-1);
+  const [numOfElementsFromSavedData, set] = useState(0);
 
   useEffect(() => {
     const data = [];
     if (!isLoadingData && itreData && !itreData.error) {
       itreData.payload.map((item) => data.push(item));
       setValue("api", data);
+      set(Object.keys(itreData.payload).length);
     }
-  }, [isLoadingData, setValue, itreData]);
+  }, [isLoadingData, setValue, itreData, set]);
 
   function onSubmit(data) {
-    const processedData = data.api.map((item) => ({
-      ...item,
-      api_score: Number(item.api_score),
-    }));
+    const processedData = data.api
+      .map((item) => ({
+        ...item,
+        api_score: Number(item.api_score),
+      }))
+      .slice(numOfElementsFromSavedData);
     insertMul(processedData, { onSettled: () => reset() });
   }
 
@@ -59,22 +63,25 @@ export default function ITREForm() {
               type="text"
               {...register(`api.${index}.description`, message)}
               placeholder="Enter Description"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
             <Input
               type="number"
               {...register(`api.${index}.api_score`, message)}
               placeholder="Enter API Score"
-              disabled={submitted}
+              disabled={index < numOfElementsFromSavedData && edit !== index}
             />
-            <CustomDelete type="button" onClick={() => remove(index)}>
-              <HiArchiveBoxXMark />
-            </CustomDelete>
+            <RowButtons
+              showEdit={edit === index}
+              index={index}
+              setEdit={setEdit}
+              remove={remove}
+              belongsToSaveData={index < numOfElementsFromSavedData}
+            />
           </FlexRow>
         ))}
         <TLEAButton
-          submitted={submitted}
-          setSubmitted={setSubmitted}
+          showSubmit={fields.length > numOfElementsFromSavedData}
           navlink="/academic/tlea/ed"
           append={() => append(defaultValue.api[0])}
         />
